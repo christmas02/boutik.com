@@ -16,7 +16,7 @@
             <div class="row">
                 <div class="col-12">
                     <div class="page-title-box d-sm-flex align-items-center justify-content-between">
-                        <h4 class="mb-sm-0">Detail du produit</h4>
+                        <h4 class="mb-sm-0">Detail du $produit</h4>
                     </div>
                 </div>
             </div>
@@ -34,12 +34,11 @@
                                             <div class="swiper-wrapper">
                                                 <div class="swiper-slide">
                                                     <a class="container-image">
-                                                        <img src="{{ env('IMAGES_PATH') }}/{{ $product['picture'] }}" alt="" class="img-fluid d-block" />
+                                                        <img src="{{ env('IMAGES_PATH') }}/{{ $produit['picture'] }}" alt="" class="img-fluid d-block" />
                                                         <div class="overlay">
-                                                            <button data-bs-toggle="modal" data-bs-target="#exampleModalUpadeImage{{ $product['id'] }}" class="btn btn-sm btn-primary btn-rounded">
+                                                            <button data-bs-toggle="modal" data-bs-target="#exampleModalUpadeImage{{ $produit['id'] }}" class="btn btn-sm btn-primary btn-rounded">
                                                                 <i class="ri-pencil-fill align-bottom"></i>
                                                             </button>
-
                                                         </div>
                                                     </a>
                                                 </div>
@@ -55,11 +54,11 @@
                                     <div class="mt-xl-0 mt-5">
                                         <div class="d-flex">
                                             <div class="flex-grow-1">
-                                                <h4>{{$product['name']}}</h4>
+                                                <h4>{{$produit['name']}}</h4>
                                                 <div class="hstack gap-3 flex-wrap">
-                                                    <div class="text-muted">Catégorie : <span class="text-body fw-medium">{{$product['category']}}</span></div>
+                                                    <div class="text-muted">Catégorie : <span class="text-body fw-medium">{{$produit['category']}}</span></div>
                                                     <div class="vr"></div>
-                                                    <div class="text-muted">Date de publication : <span class="text-body fw-medium">{{$product['date_publication']}}</span></div>
+                                                    <div class="text-muted">Date de publication : <span class="text-body fw-medium">{{$produit['date_publication']}}</span></div>
                                                     <div class="vr"></div>
 
                                                 </div>
@@ -69,7 +68,7 @@
 
                                         <div class="mt-4 text-muted">
                                             <h5 class="fs-14">Description :</h5>
-                                            {!! $product['description'] !!}
+                                            {!! $produit['description'] !!}
 
                                             <hr>
 
@@ -78,11 +77,11 @@
                                                     <tbody>
                                                     <tr>
                                                         <th scope="row" style="width: 200px;">Prix unitaire</th>
-                                                        <td>{{$product['amount']}}</td>
+                                                        <td>{{ number_format($produit['amount'] ) }} CFA</td>
                                                     </tr>
                                                     <tr>
                                                         <th scope="row">Quantité en stock</th>
-                                                        <td>{{$product['quantity']}}</td>
+                                                        <td>{{$produit['quantity']}}</td>
                                                     </tr>
                                                     </tbody>
                                                 </table>
@@ -91,7 +90,7 @@
                                             <h3>Autre images</h3>
                                             <hr>
                                             <div class="swiper-wrapper row">
-                                                @foreach($product['galerie'] as $items)
+                                                @foreach($produit['galerie'] as $items)
                                                 <div class="col-md-3 swiper-slide">
                                                     <div class="nav-slide-item">
                                                         <a class="container-image">
@@ -127,22 +126,24 @@
                     <div class="card">
                         <div class="card-body">
                             <!-- Base Buttons -->
-                            <button type="button" class="btn btn-primary waves-effect waves-light" data-bs-toggle="modal" id="create-btn" data-bs-target="#approModal">Approvissionement du produit</button>
+                            <button type="button" class="btn btn-primary waves-effect waves-light" data-bs-toggle="modal" id="create-btn" data-bs-target="#approModal">Approvissionement du $produit</button>
 
-                            <button type="button" class="btn btn-secondary waves-effect waves-light" data-bs-toggle="modal" id="create-btn" data-bs-target="#modifiprodModal">Modification du produit</button>
+                            <button type="button" class="btn btn-secondary waves-effect waves-light" data-bs-toggle="modal" id="create-btn" data-bs-target="#modifiprodModal">Modification du $produit</button>
 
-                            <button type="button" class="btn btn-info waves-effect waves-light" data-bs-toggle="modal" id="create-btn" data-bs-target="#modifimageModal">Modification de l'image du produit</button>
+                            <button type="button" class="btn btn-info waves-effect waves-light" data-bs-toggle="modal" id="create-btn" data-bs-target="#modifimageModal">Modification de l'image du $produit</button>
+
+                            <button type="button" class="btn btn-info waves-effect waves-light" data-bs-toggle="modal" id="create-btn" data-bs-target="#modifgalerieModal">Modification la galerie du produit</button>
 
                             <form class="hstack gap-2 justify-content-end" action="/saveValueArchive" method="POST">
                                 @csrf
-                                @if( $product['archive'] != null )
+                                @if( $produit['archive'] != null )
                                 <input type="hidden" value="1" name="archive">
-                                <input type="hidden" value="{{$product['code_product']}}" name="code_product">
-                                <button type="submit" class="btn btn-danger waves-effect waves-light" >Dérouiller le produit</button>
+                                <input type="hidden" value="{{$produit['code_product']}}" name="code_product">
+                                <button type="submit" class="btn btn-danger waves-effect waves-light" >Dérouiller le $produit</button>
                                 @else
                                 <input type="hidden" value="0" name="archive">
-                                <input type="hidden" value="{{$product['code_product']}}" name="code_product">
-                                <button type="submit" class="btn btn-danger waves-effect waves-light">Supprimer le produit</button>
+                                <input type="hidden" value="{{$produit['code_product']}}" name="code_product">
+                                <button type="submit" class="btn btn-danger waves-effect waves-light">Supprimer le $produit</button>
                                 @endif
                             </form>
                             <!-- end row -->
@@ -159,13 +160,13 @@
             <div class="card">
                 <div class="card-header">
                     <div class="d-sm-flex align-items-center">
-                        <h5 class="card-title flex-grow-1 mb-0">Historique d'évolution du produit</h5>
+                        <h5 class="card-title flex-grow-1 mb-0">Historique d'évolution du $produit</h5>
                     </div>
                 </div>
                 <div class="card-body">
                     <div class="profile-timeline">
                         <div class="accordion accordion-flush" id="accordionFlushExample">
-                            @foreach($product['historic'] as $value)
+                            @foreach($produit['historic'] as $value)
                             <div class="accordion-item border-0">
                                 <div class="accordion-header" id="headingOne">
                                     <a class="accordion-button p-2 shadow-none" data-bs-toggle="collapse" href="#collapseOne" aria-expanded="true" aria-controls="collapseOne">
@@ -204,8 +205,6 @@
                 </div>
             </div>
 
-
-
         </div>
         <!-- container-fluid -->
     </div>
@@ -216,19 +215,19 @@
         <div class="modal-dialog modal-lg modal-dialog-centered">
             <div class="modal-content">
                 <div class="modal-header bg-light p-3">
-                    <h5 class="modal-title" id="exampleModalLabel">Approvisionnement du produit</h5>
+                    <h5 class="modal-title" id="exampleModalLabel">Approvisionnement du $produit</h5>
                     <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close" id="close-modal"></button>
                 </div>
                 <div class="table-responsive">
                     <table class="table mb-0">
                         <tbody>
                         <tr>
-                            <th scope="row" style="width: 200px;">Nom du produit</th>
-                            <td>{{$product['name']}}</td>
+                            <th scope="row" style="width: 200px;">Nom du $produit</th>
+                            <td>{{$produit['name']}}</td>
                         </tr>
                         <tr>
                             <th scope="row">Quantité en stock </th>
-                            <td>{{$product['quantity']}}</td>
+                            <td>{{$produit['quantity']}}</td>
                         </tr>
                         </tbody>
                     </table>
@@ -238,9 +237,9 @@
                     <div class="modal-body">
                         <div class="mb-3">
                             <label for="email-field" class="form-label"></label>
-                            <input type="hidden" value="{{$product['code_product']}}" name="code_product">
-                            <input type="hidden" value="{{$product['quantity']}}" name="old_quantity">
-                            <input type="text" name="new_quantity"  class="form-control" placeholder="Quantité du produit pour approvissionement" required />
+                            <input type="hidden" value="{{$produit['code_product']}}" name="code_product">
+                            <input type="hidden" value="{{$produit['quantity']}}" name="old_quantity">
+                            <input type="text" name="new_quantity"  class="form-control" placeholder="Quantité du $produit pour approvissionement" required />
                             <div class="invalid-feedback">Entrée.</div>
                         </div>
                     </div>
@@ -269,12 +268,12 @@
                     <div class="modal-body">
                         <div class="mb-3">
                             <label class="form-label" for="product-title-input">Nom de produit</label>
-                            <input type="text" class="form-control" name="name" value="{{ $product['name'] }}" required>
+                            <input type="text" class="form-control" name="name" value="{{ $produit['name'] }}" required>
                             <div class="invalid-feedback">Please Enter a product title.</div>
                         </div>
                         <div class="mb-3">
-                            <label>Description du produit</label>
-                            <textarea name="description" id="ckeditor-classic"> {{ $product['description'] }} </textarea>
+                            <label>Description du $produit</label>
+                            <textarea name="description" id="ckeditor-classic"> {{ $produit['description'] }} </textarea>
                         </div>
 
                         <div class="mb-3">
@@ -282,7 +281,7 @@
                             <select name="categorie" id="categorie" class="form-select">
                                 <option value="">--Choisir la Catégorie--</option>
                                 @foreach($categories as $categorie)
-                                <option value="{{ $categorie->id }}" @if($categorie->id == $product['idcategory'] ) selected @endif>{{ $categorie->name }}</option>
+                                <option value="{{ $categorie->id }}" @if($categorie->id == $produit['idcategory'] ) selected @endif>{{ $categorie->name }}</option>
                                 @endforeach
                             </select>
                         </div>
@@ -290,13 +289,13 @@
                         <div class="mb-3">
                             <label class="form-label" for="product-title-input">Montant</label>
                             <input type="text" class="form-control d-none">
-                            <input type="number" class="form-control" name="amount" value="{{ $product['amount'] }}"  required>
+                            <input type="number" class="form-control" name="amount" value="{{ $produit['amount'] }}"  required>
                             <div class="invalid-feedback">Please Enter a product title.</div>
                         </div>
 
                         <div class="mb-3">
                             <label for="email-field" class="form-label"></label>
-                            <input type="hidden" value="{{$product['code_product']}}" name="code_product">
+                            <input type="hidden" value="{{$produit['code_product']}}" name="code_product">
                             <div class="invalid-feedback">Entrée.</div>
                         </div>
                     </div>
@@ -316,7 +315,7 @@
         <div class="modal-dialog modal-lg modal-dialog-centered">
             <div class="modal-content">
                 <div class="modal-header bg-light p-3">
-                    <h5 class="modal-title" id="exampleModalLabel">Modification de l'image du produit</h5>
+                    <h5 class="modal-title" id="exampleModalLabel">Modification de l'image du $produit</h5>
                     <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close" id="close-modal"></button>
                 </div>
 
@@ -325,7 +324,7 @@
                     <div class="modal-body">
                         <div class="card">
                             <div class="card-header">
-                                <h5 class="card-title mb-0">Image du produit</h5>
+                                <h5 class="card-title mb-0">Image du $produit</h5>
                             </div>
                             <div class="card-body">
                                 <div class="mb-4">
@@ -339,7 +338,7 @@
                                                         </div>
                                                     </div>
                                                 </label>
-                                                <input class="form-control d-none" value="" id="product-image-input" name="picture" type="file" accept="image/png, image/gif, image/jpeg">
+                                                <input class="form-control d-none" value="" id="product-image-input" name="picture" type="file" accept="image/png, image/webp, image/gif, image/jpeg">
                                             </div>
                                             <div class="avatar-lg">
                                                 <div class="avatar-title bg-light rounded">
@@ -378,7 +377,7 @@
 
                         <div class="mb-3">
                             <label for="email-field" class="form-label"></label>
-                            <input type="hidden" value="{{$product['code_product']}}" name="code_product">
+                            <input type="hidden" value="{{$produit['code_product']}}" name="code_product">
                             <div class="invalid-feedback">Entrée.</div>
                         </div>
                     </div>
@@ -394,6 +393,46 @@
         </div>
     </div>
 
+    <div class="modal fade" id="modifgalerieModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+        <div class="modal-dialog modal-lg modal-dialog-centered">
+            <div class="modal-content">
+                <div class="modal-header bg-light p-3">
+                    <h5 class="modal-title" id="exampleModalLabel">Modification des image de la galerie</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close" id="close-modal"></button>
+                </div>
+
+                <form class="tablelist-form" action="/updateProduct" method="POST" autocomplete="off">
+                    @csrf
+                    <div class="modal-body">
+                        @foreach($produit['galerie'] as $items)
+                        <div class="col-md-3 swiper-slide">
+                            <div class="nav-slide-item">
+                                <a class="container-image">
+                                    <div class="" style="padding: 20px; border:1px solid red;">
+                                        <img src="{{ env('IMAGES_PATH') }}/{{ $items->image }}" alt="" class="img-fluid d-block" />
+                                    </div>
+                                </a>
+                            </div>
+                        </div>
+                        <div class="mb-3">
+                            <label class="form-label" for="product-title-input">Nouvelle image</label>
+                            <input type="file" class="form-control" name="image" value="" required>
+                            <div class="invalid-feedback">Please Enter a product title.</div>
+                        </div>
+                        @endforeach
+
+                    </div>
+                    <div class="modal-footer">
+                        <div class="hstack gap-2 justify-content-end">
+                            <button type="button" class="btn btn-light" data-bs-dismiss="modal">Close</button>
+                            <button type="submit" class="btn btn-success" id="add-btn">Enregistrer</button>
+                            <!-- <button type="button" class="btn btn-success" id="edit-btn">Update</button> -->
+                        </div>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
 
 
     <footer class="footer">

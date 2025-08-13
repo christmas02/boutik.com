@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\Client\CartController;
 use App\Http\Controllers\Client\ShoppingController;
 use App\Http\Controllers\UserController;
 use Illuminate\Support\Facades\Route;
@@ -16,16 +17,13 @@ use App\Http\Controllers\Admin\AdminController;
 |
 */
 
-Route::get('/', function () {
-    return view('welcome');
-});
-
 //view shop
 Route::view('shopping', 'shop.index')->name('shopping');
 Route::view('categorie', 'shop.categorie')->name('categorie');
 Route::view('produit', 'shop.produit')->name('produit');
 Route::view('panier', 'shop.panier')->name('panier');
 Route::view('valide_panier', 'shop.valide_panier')->name('valide_panier');
+Route::view('model_mail_commande', 'mail.template');
 
 
 Route::controller(UserController::class)->group(function () {
@@ -37,9 +35,20 @@ Route::controller(UserController::class)->group(function () {
 });
 
 Route::controller(ShoppingController::class)->group(function () {
-    Route::get('/','index')->name('home.page');
+    Route::get('/','home')->name('home.page');
+    Route::get('/produits_de_categorie/{id}/{categorie}', 'productCategory')->name('productCat');
+    Route::get('/produit/{code_produit}', 'showProduct')->name('showProduct');
+    Route::get('/valide_panier', 'validePanier')->name('checkout');
+    Route::post('/valide_commande', 'saveCommande');
 });
 
+Route::controller(CartController::class)->group(function () {
+    Route::post('/ajouter_au_panier', 'addCart')->name('add.cart');
+    Route::get('/mon_panier', 'index')->name('cart');
+    Route::post('/update_quantity/{id}', 'updateQuantity');
+    Route::post('/delet_produit', 'deleteProduct')->name('delete.product');
+
+});
 
 
 Route::group(['middleware' => 'auth'], function () {
@@ -66,8 +75,6 @@ Route::group(['middleware' => 'auth'], function () {
         Route::post('/updateSouscategory', 'updateSouscategory')->name('updateSouscategory');
         Route::get('/supprimer/categorie/{identifiant}', 'deletCategory')->name('deletCategory');
         Route::get('/supprimer/sous_categorie/{identifiant}', 'deletSousCategory')->name('deletSousCategory');
-
-
     });
     Route::controller(CommandeController::class)->group(function () {
         // Commande

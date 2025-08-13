@@ -24,6 +24,8 @@
         </div>
     </div>
 </div>
+<!-- <div id="flash-container" style="position: fixed; top: 20px; right: 20px; z-index: 9999;"></div> -->
+<div id="flash-container" style="top: 20px; right: 20px; z-index: 9999;"></div>
 <div class="row">
     <div class="col-xxl-12">
         <section class="mn-single-product">
@@ -37,160 +39,58 @@
                                     <div class="single-product-scroll">
                                         <div class="single-product-cover">
                                             <div class="single-slide zoom-image-hover">
-                                                <img class="img-responsive" src="assets/img/product/27.jpg"
-                                                     alt="">
+                                                <img class="img-responsive" src="{{ env('IMAGES_PATH') }}/{{ $product['picture'] }}" alt="">
                                             </div>
+                                            @foreach($product['galerie'] as $items)
                                             <div class="single-slide zoom-image-hover">
-                                                <img class="img-responsive" src="assets/img/product/28.jpg"
-                                                     alt="">
+                                                <img class="img-responsive" src="{{ env('IMAGES_PATH') }}/{{ $items->image }}" alt="">
                                             </div>
-                                            <div class="single-slide zoom-image-hover">
-                                                <img class="img-responsive" src="assets/img/product/29.jpg"
-                                                     alt="">
-                                            </div>
-                                            <div class="single-slide zoom-image-hover">
-                                                <img class="img-responsive" src="assets/img/product/30.jpg"
-                                                     alt="">
-                                            </div>
-                                            <div class="single-slide zoom-image-hover">
-                                                <img class="img-responsive" src="assets/img/product/29.jpg"
-                                                     alt="">
-                                            </div>
+                                            @endforeach
                                         </div>
                                         <div class="single-nav-thumb">
                                             <div class="single-slide">
-                                                <img class="img-responsive" src="assets/img/product/27.jpg"
-                                                     alt="">
+                                                <img class="img-responsive" src="{{ env('IMAGES_PATH') }}/{{ $product['picture'] }}" alt="">
                                             </div>
+                                            @foreach($product['galerie'] as $items)
                                             <div class="single-slide">
-                                                <img class="img-responsive" src="assets/img/product/28.jpg"
-                                                     alt="">
+                                                <img class="img-responsive" src="{{ env('IMAGES_PATH') }}/{{ $items->image }}" alt="">
                                             </div>
-                                            <div class="single-slide">
-                                                <img class="img-responsive" src="assets/img/product/29.jpg"
-                                                     alt="">
-                                            </div>
-                                            <div class="single-slide">
-                                                <img class="img-responsive" src="assets/img/product/30.jpg"
-                                                     alt="">
-                                            </div>
-                                            <div class="single-slide">
-                                                <img class="img-responsive" src="assets/img/product/29.jpg"
-                                                     alt="">
-                                            </div>
+                                            @endforeach
                                         </div>
                                     </div>
                                 </div>
                                 <div class="single-pro-desc single-pro-desc-no-sidebar m-t-991">
                                     <div class="single-pro-content">
-                                        <h5 class="mn-single-title">Mantu Women's Solid Slim Fit Classic
-                                            Round Neck cotton fabric T-Shirt.</h5>
-                                        <div class="mn-single-rating-wrap">
-                                            <div class="mn-single-rating mn-pro-rating">
-                                                <i class="ri-star-fill"></i>
-                                                <i class="ri-star-fill"></i>
-                                                <i class="ri-star-fill"></i>
-                                                <i class="ri-star-fill"></i>
-                                                <i class="ri-star-fill grey"></i>
-                                            </div>
-                                            <span class="mn-read-review">
-															|&nbsp;&nbsp;<a href="#mn-spt-nav-review">992 Ratings</a>
-														</span>
-                                        </div>
+                                        <small> {{ $product['category'] }} </small>
+                                        <h5 class="mn-single-title">{{ $product['name']}}</h5>
 
                                         <div class="mn-single-price-stoke">
                                             <div class="mn-single-price">
-                                                <div class="final-price">$664.00<span
-                                                        class="price-des">-78%</span>
-                                                </div>
-                                                <div class="mrp">M.R.P. : <span>$2,999.00</span></div>
+                                                <div class="final-price">{{ number_format($product['amount'] ) }} CFA</div>
                                             </div>
                                             <div class="mn-single-stoke">
-                                                <span class="mn-single-sku">SKU#: WH12</span>
-                                                <span class="mn-single-ps-title">IN STOCK</span>
+                                                <span class="mn-single-sku">{{ $product['code_product']}}</span>
+                                                @if($product['typeachat'] == "DISPO")
+                                                <span class="mn-single-ps-title"> DISPONIBLE</span>
+                                                @elseif( $product['typeachat'] == "PRE_COM")
+                                                <span class="mn-single-ps-title"> PRÉ COMMANDE</span>
+                                                @endif
                                             </div>
-                                        </div>
-                                        <div class="mn-single-sales">
-                                            <div class="mn-single-sales-inner">
-                                                <div class="mn-single-sales-visitor">Real time
-                                                    <span>56</span> visitor
-                                                    right now!
-                                                </div>
-                                                <div class="mn-single-sales-countdown">
-                                                    <div class="mn-single-countdown">
-                                                        <div class="timer1 timer dealend-timer"
-                                                             data-date="September 30, 2026 19:15:10 PDT">
-                                                        </div>
-                                                        <div class="mn-single-count-desc">Time is Running
-                                                            Out!</div>
-                                                    </div>
-                                                </div>
-                                            </div>
-                                        </div>
-                                        <div class="mn-single-desc">Lorem Ipsum is simply dummy text of the
-                                            printing and
-                                            typesetting industry. Lorem Ipsum has been the industry's
-                                            standard dummy
-                                            text ever since the 1990.</div>
-                                        <div class="mn-single-desc">There are many variations of passages of
-                                            Lorem Ipsum available, but the majority have suffered alteration
-                                            in some form, by injected humour, or randomised words which
-                                            don't look even slightly believable. If you are going to use a
-                                            passage of Lorem Ipsum, you need to be sure there isn't anything
-                                            embarrassing hidden in the middle of text. All the Lorem Ipsum
-                                            generators on the Internet tend to repeat predefined chunks as
-                                            necessary.</div>
-                                        <div class="mn-single-list">
-                                            <ul>
-                                                <li><strong>Closure :</strong> Hook & Loop</li>
-                                                <li><strong>Sole :</strong> Polyvinyl Chloride</li>
-                                                <li><strong>Width :</strong> Medium</li>
-                                                <li><strong>Outer Material :</strong> A-Grade Standard
-                                                    Quality</li>
-                                            </ul>
                                         </div>
 
-                                        <div class="mn-pro-variation">
-                                            <div
-                                                class="mn-pro-variation-inner mn-pro-variation-size m-b-24">
-                                                <span>Size</span>
-                                                <div class="mn-pro-variation-content">
-                                                    <ul>
-                                                        <li class="active"><span>s</span></li>
-                                                        <li><span>m</span></li>
-                                                        <li><span>l</span></li>
-                                                        <li><span>xl</span></li>
-                                                    </ul>
-                                                </div>
-                                            </div>
-                                            <div class="mn-pro-variation-inner mn-pro-variation-color">
-                                                <span>Colors</span>
-                                                <div class="mn-pro-variation-content">
-                                                    <ul>
-                                                        <li class="active"><span
-                                                                style="background-color:#1b4a87"></span>
-                                                        </li>
-                                                        <li><span style="background-color:#5f94d6"></span>
-                                                        </li>
-                                                        <li><span style="background-color:#72aea2"></span>
-                                                        </li>
-                                                        <li><span style="background-color:#c79782"></span>
-                                                        </li>
-                                                    </ul>
-                                                </div>
-                                            </div>
-                                        </div>
-                                        <div class="mn-single-qty">
+                                        <div class="mn-single-desc"> {!! $product['description'] !!}</div>
+
+                                        @if($product['typeachat'] == "DISPO")
+                                        <div class="mn-single-qty" style="margin-top: 30px">
+                                            <input type="hidden" id="id" name="id" value="{{ $product['id'] }}">
                                             <div class="qty-plus-minus">
-                                                <input class="qty-input" type="text" name="ms_qtybtn"
-                                                       value="1">
+                                                <input id="quantity" name="quantity" class="qty-input" type="text" name="ms_qtybtn" value="1">
                                             </div>
                                             <div class="mn-btns">
                                                 <div class="mn-single-cart">
-                                                    <button
-                                                        class="btn btn-primary mn-btn-2 mn-add-cart"><span>Add
-																		To
-																		Cart</span></button>
+                                                    <button id="addcart" class="btn btn-primary mn-btn-2">
+                                                        <span>Ajouter au panier</span>
+                                                    </button>
                                                 </div>
                                                 <div class="mn-single-wishlist">
                                                     <a href="javascript:void(0)"
@@ -199,354 +99,28 @@
                                                         <i class="ri-heart-line"></i>
                                                     </a>
                                                 </div>
-                                                <div class="mn-single-mn-compare">
-                                                    <a href="javascript:void(0)"
-                                                       class="mn-btn-group mn-compare" title="Quick view">
-                                                        <i class="ri-repeat-line"></i>
-                                                    </a>
+                                            </div>
+                                        </div>
+
+                                       @elseif( $product['typeachat'] == "PRE_COM")
+                                        <div class="mn-single-qty">
+                                            <div class="mn-btns">
+                                                <div class="mn-single-cart">
+                                                    <button class="btn btn-primary mn-btn-2 mn-add-cart"><span>Pré_commander</span></button>
                                                 </div>
                                             </div>
                                         </div>
+                                        @endif
+
+
                                     </div>
                                 </div>
                             </div>
                         </div>
                     </div>
                     <!--Single product content End -->
-                    <!-- Add More and get discount content Start -->
-                    <div class="single-add-more m-tb-30">
-                        <div class="mn-add-more-slider owl-carousel">
-                            <div class="add-more-item">
-                                <a href="javascript:void(0)" class="mn-btn-2"><span>+</span></a>
-                                <div class="add-more-img">
-                                    <img src="assets/img/product/1.jpg" alt="product">
-                                </div>
-                                <div class="add-more-info">
-                                    <h5>Honey Spiced Nuts</h5>
-                                    <span class="mn-pro-rating">
-													<i class="ri-star-fill"></i>
-													<i class="ri-star-fill"></i>
-													<i class="ri-star-fill"></i>
-													<i class="ri-star-fill grey"></i>
-													<i class="ri-star-fill grey"></i>
-												</span>
-                                    <span class="mn-price">
-													<span class="new-price">$32.00</span>
-													<span class="old-price">$45.00</span>
-												</span>
-                                </div>
-                            </div>
-                            <div class="add-more-item">
-                                <a href="javascript:void(0)" class="mn-btn-2"><span>+</span></a>
-                                <div class="add-more-img">
-                                    <img src="assets/img/product/31.jpg" alt="product">
-                                </div>
-                                <div class="add-more-info">
-                                    <h5>Dates Value Pouch</h5>
-                                    <span class="mn-pro-rating">
-													<i class="ri-star-fill"></i>
-													<i class="ri-star-fill"></i>
-													<i class="ri-star-fill"></i>
-													<i class="ri-star-fill"></i>
-													<i class="ri-star-fill"></i>
-												</span>
-                                    <span class="mn-price">
-													<span class="new-price">$56.00</span>
-													<span class="old-price">$60.00</span>
-												</span>
-                                </div>
-                            </div>
-                            <div class="add-more-item">
-                                <a href="javascript:void(0)" class="mn-btn-2"><span>+</span></a>
-                                <div class="add-more-img">
-                                    <img src="assets/img/product/17.jpg" alt="product">
-                                </div>
-                                <div class="add-more-info">
-                                    <h5>Graps Mix Snack</h5>
-                                    <span class="mn-pro-rating">
-													<i class="ri-star-fill"></i>
-													<i class="ri-star-fill"></i>
-													<i class="ri-star-fill grey"></i>
-													<i class="ri-star-fill grey"></i>
-													<i class="ri-star-fill grey"></i>
-												</span>
-                                    <span class="mn-price">
-													<span class="new-price">$28.00</span>
-													<span class="old-price">$35.00</span>
-												</span>
-                                </div>
-                            </div>
-                            <div class="add-more-item">
-                                <a href="javascript:void(0)" class="mn-btn-2"><span>+</span></a>
-                                <div class="add-more-img">
-                                    <img src="assets/img/product/35.jpg" alt="product">
-                                </div>
-                                <div class="add-more-info">
-                                    <h5>Roasted Almonds Pack</h5>
-                                    <span class="mn-pro-rating">
-													<i class="ri-star-fill"></i>
-													<i class="ri-star-fill"></i>
-													<i class="ri-star-fill"></i>
-													<i class="ri-star-fill"></i>
-													<i class="ri-star-fill"></i>
-												</span>
-                                    <span class="mn-price">
-													<span class="new-price">$16.00</span>
-													<span class="old-price">$23.00</span>
-												</span>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                    <!-- Single product tab start -->
-                    <div class="mn-single-pro-tab">
-                        <div class="mn-single-pro-tab-wrapper">
-                            <div class="mn-single-pro-tab-nav">
-                                <ul class="nav nav-tabs" id="myTab" role="tablist">
-                                    <li class="nav-item" role="presentation">
-                                        <button class="nav-link active" id="details-tab"
-                                                data-bs-toggle="tab" data-bs-target="#mn-spt-nav-details"
-                                                type="button" role="tab" aria-controls="mn-spt-nav-details"
-                                                aria-selected="true">Detail</button>
-                                    </li>
-                                    <li class="nav-item" role="presentation">
-                                        <button class="nav-link" id="info-tab" data-bs-toggle="tab"
-                                                data-bs-target="#mn-spt-nav-info" type="button" role="tab"
-                                                aria-controls="mn-spt-nav-info"
-                                                aria-selected="false">Specifications</button>
-                                    </li>
-                                    <li class="nav-item" role="presentation">
-                                        <button class="nav-link" id="vendor-tab" data-bs-toggle="tab"
-                                                data-bs-target="#mn-spt-nav-vendor" type="button" role="tab"
-                                                aria-controls="mn-spt-nav-vendor"
-                                                aria-selected="false">Vendor</button>
-                                    </li>
-                                    <li class="nav-item" role="presentation">
-                                        <button class="nav-link" id="review-tab" data-bs-toggle="tab"
-                                                data-bs-target="#mn-spt-nav-review" type="button" role="tab"
-                                                aria-controls="mn-spt-nav-review"
-                                                aria-selected="false">Reviews</button>
-                                    </li>
-                                </ul>
 
-                            </div>
-                            <div class="tab-content  mn-single-pro-tab-content">
-                                <div id="mn-spt-nav-details" class="tab-pane fade show active">
-                                    <div class="mn-single-pro-tab-desc">
-                                        <p>Lorem Ipsum is simply dummy text of the printing and typesetting
-                                            industry.
-                                            Lorem Ipsum has been the industry's standard dummy text ever
-                                            since the
-                                            1500s, when an unknown printer took a galley of type and
-                                            scrambled it to
-                                            make a type specimen book. It has survived not only five
-                                            centuries, but also
-                                            the leap into electronic typesetting, remaining essentially
-                                            unchanged.
-                                        </p>
-                                        <ul>
-                                            <li>Any Product types that You want - Simple, Configurable</li>
-                                            <li>Downloadable/Digital Products, Virtual Products</li>
-                                            <li>Inventory Management with Backordered items</li>
-                                            <li>Flatlock seams throughout.</li>
-                                        </ul>
-                                        <p>Lorem Ipsum is simply dummy text of the printing and typesetting
-                                            industry.
-                                            Lorem Ipsum has been the industry's standard dummy text ever
-                                            since the
-                                            1500s, when an unknown printer took a galley of type and
-                                            scrambled it to
-                                            make a type specimen book. It has survived not only five
-                                            centuries, but also
-                                            the leap into electronic typesetting, remaining essentially
-                                            unchanged.
-                                        </p>
-                                        <p>There are many variations of passages of Lorem Ipsum available,
-                                            but the
-                                            majority have
-                                            suffered alteration in some form, by injected humour, or
-                                            randomised words
-                                            which don't
-                                            look even slightly believable. If you are going to use a passage
-                                            of Lorem
-                                            Ipsum,
-                                            you need to be sure there isn't anything embarrassing hidden in
-                                            the middle
-                                            of text.
-                                            All the Lorem Ipsum generators on the Internet tend to repeat
-                                            predefined
-                                            chunks as necessary,
-                                            making this the first true generator on the Internet. It uses a
-                                            dictionary
-                                            of over
-                                            200 Latin words, combined with a handful of model sentence
-                                            structures, to
-                                            generate
-                                            Lorem Ipsum which looks reasonable. The generated Lorem Ipsum is
-                                            therefore
-                                            always
-                                            free from repetition, injected humour, or non-characteristic
-                                            words etc.</p>
-                                    </div>
-                                </div>
-                                <div id="mn-spt-nav-info" class="tab-pane fade">
-                                    <div class="mn-single-pro-tab-moreinfo">
-                                        <p>Lorem Ipsum is simply dummy text of the printing and typesetting
-                                            industry.
-                                            Lorem Ipsum has been the industry's standard dummy text ever
-                                            since the
-                                            1500s, when an unknown printer took a galley of type and
-                                            scrambled it to
-                                            make a type specimen book. It has survived not only five
-                                            centuries.
-                                        </p>
-                                        <ul>
-                                            <li><span>Model</span> SKU140</li>
-                                            <li><span>Weight</span> 500 g</li>
-                                            <li><span>Dimensions</span> 35 × 30 × 7 cm</li>
-                                            <li><span>Color</span> Black, Pink, Red, White</li>
-                                            <li><span>Size</span> 10 X 20</li>
-                                        </ul>
-                                    </div>
-                                </div>
-                                <div id="mn-spt-nav-vendor" class="tab-pane fade">
-                                    <div class="mn-single-pro-tab-moreinfo">
-                                        <div class="mn-product-vendor">
-                                            <div class="mn-vendor-info">
-															<span>
-																<img src="assets/img/vendor/1.jpg" alt="vendor">
-															</span>
-                                                <div>
-                                                    <h5>Ocean Crate</h5>
-                                                    <p>Products : 358</p>
-                                                    <p>Sales : 5587</p>
-                                                </div>
-                                            </div>
-                                            <div class="mn-detail">
-                                                <ul>
-                                                    <li><span>Phone No. :</span> +00 987654321</li>
-                                                    <li><span>Email. :</span> Example@gmail.com</li>
-                                                    <li><span>Address. :</span> 2548 Broaddus Maple Court,
-                                                        Madisonville
-                                                        KY 4783, USA.</li>
-                                                </ul>
-                                                <p class="mb-0">Lorem Ipsum is simply dummy text of the
-                                                    printing and
-                                                    typesetting
-                                                    industry.
-                                                    Lorem Ipsum has been the industry's standard dummy text
-                                                    ever since
-                                                    the
-                                                    1500s, when an unknown printer took a galley of type and
-                                                    scrambled
-                                                    it to
-                                                    make a type specimen book. It has survived not only five
-                                                    centuries,
-                                                    but also
-                                                    the leap into electronic typesetting, remaining
-                                                    essentially
-                                                    unchanged.
-                                                </p>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
-                                <div id="mn-spt-nav-review" class="tab-pane fade">
-                                    <div class="row">
-                                        <div class="mn-t-review-wrapper mt-0">
-                                            <div class="mn-t-review-item">
-                                                <div class="mn-t-review-avtar">
-                                                    <img src="assets/img/user/1.jpg" alt="user">
-                                                </div>
-                                                <div class="mn-t-review-content">
-                                                    <div class="mn-t-review-top">
-                                                        <div class="mn-t-review-name">Mariya Lykra</div>
-                                                        <div class="mn-t-review-rating mn-pro-rating">
-                                                            <i class="ri-star-fill"></i>
-                                                            <i class="ri-star-fill"></i>
-                                                            <i class="ri-star-fill"></i>
-                                                            <i class="ri-star-fill"></i>
-                                                            <i class="ri-star-fill grey"></i>
-                                                        </div>
-                                                    </div>
-                                                    <div class="mn-t-review-bottom">
-                                                        <p>Lorem Ipsum is simply dummy text of the printing
-                                                            and
-                                                            typesetting industry. Lorem Ipsum has been the
-                                                            industry's
-                                                            standard dummy text ever since the 1500s, when
-                                                            an unknown
-                                                            printer took a galley of type and scrambled it
-                                                            to make a
-                                                            type specimen.
-                                                        </p>
-                                                    </div>
-                                                </div>
-                                            </div>
-                                            <div class="mn-t-review-item">
-                                                <div class="mn-t-review-avtar">
-                                                    <img src="assets/img/user/2.jpg" alt="user">
-                                                </div>
-                                                <div class="mn-t-review-content">
-                                                    <div class="mn-t-review-top">
-                                                        <div class="mn-t-review-name">Moris Willson</div>
-                                                        <div class="mn-t-review-rating mn-pro-rating">
-                                                            <i class="ri-star-fill"></i>
-                                                            <i class="ri-star-fill"></i>
-                                                            <i class="ri-star-fill"></i>
-                                                            <i class="ri-star-fill grey"></i>
-                                                            <i class="ri-star-fill grey"></i>
-                                                        </div>
-                                                    </div>
-                                                    <div class="mn-t-review-bottom">
-                                                        <p>Lorem Ipsum has been the industry's
-                                                            standard dummy text ever since the 1500s, when
-                                                            an unknown
-                                                            printer took a galley of type and scrambled it
-                                                            to make a
-                                                            type specimen.
-                                                        </p>
-                                                    </div>
-                                                </div>
-                                            </div>
 
-                                        </div>
-                                        <div class="mn-ratting-content">
-                                            <h3>Add a Review</h3>
-                                            <div class="mn-ratting-form">
-                                                <form action="#">
-                                                    <div class="mn-ratting-star">
-                                                        <span>Your rating:</span>
-                                                        <div class="mn-t-review-rating mn-pro-rating">
-                                                            <i class="ri-star-fill"></i>
-                                                            <i class="ri-star-fill"></i>
-                                                            <i class="ri-star-fill grey"></i>
-                                                            <i class="ri-star-fill grey"></i>
-                                                            <i class="ri-star-fill grey"></i>
-                                                        </div>
-                                                    </div>
-                                                    <div class="mn-ratting-input">
-                                                        <input name="your-name" placeholder="Name"
-                                                               type="text">
-                                                    </div>
-                                                    <div class="mn-ratting-input">
-                                                        <input name="your-email" placeholder="Email*"
-                                                               type="email" required>
-                                                    </div>
-                                                    <div class="mn-ratting-input form-submit">
-																	<textarea name="your-commemt"
-                                                                              placeholder="Enter Your Comment"></textarea>
-                                                        <button class="mn-btn-2" type="submit"
-                                                                value="Submit"><span>Submit</span></button>
-                                                    </div>
-                                                </form>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
                     <!-- Related Section -->
                     <section class="mn-related-product m-t-30">
                         <div class="mn-title">
@@ -969,8 +543,8 @@
 @endsection
 
 @section('scripts')
+
 <!-- calendar js-->
-<script src="{{ asset('assets/js/datatable/datatables/jquery.dataTables.min.js') }}"></script>
 
 @endsection
 

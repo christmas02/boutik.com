@@ -3,60 +3,25 @@
     <div class="mn-cart-inner">
         <div class="mn-cart-top">
             <div class="mn-cart-title">
-                <span class="cart_title">My Cart</span>
+                <span class="cart_title">Mon panier</span>
                 <a href="javascript:void(0)" class="mn-cart-close">
                     <i class="ri-close-line"></i>
                 </a>
             </div>
             <ul class="mn-cart-pro-items">
+                @foreach ($content as $item)
                 <li class="cart-sidebar-list">
-                    <a href="product-detail.html" class="mn-pro-img"><img src="assets/img/product/11.jpg"
-                                                                          alt="product"></a>
+                    <a href="/" class="mn-pro-img"><img src="{{ env('IMAGES_PATH') }}/{{ $item->picture }}" alt="{{ $item->picture }}"></a>
                     <div class="mn-pro-content">
-                        <a href="product-detail.html" class="cart-pro-title">Smart watch</a>
-                        <span class="cart-price"><span>$255.00</span> x 1</span>
+                        <a href="" class="cart-pro-title">{{ $item['name'] }}</a>
+                        <span class="cart-price"><span>{{ number_format($item->price, 0, ',', ' ') }} XOF</span> x {{ $item->quantity }}</span>
                         <div class="qty-plus-minus">
                             <input class="qty-input" type="text" name="mn-qtybtn" value="1">
                         </div>
                         <a href="javascript:void(0)" class="cart-remove-item">×</a>
                     </div>
                 </li>
-                <li class="cart-sidebar-list">
-                    <a href="product-detail.html" class="mn-pro-img"><img src="assets/img/product/5.jpg"
-                                                                          alt="product"></a>
-                    <div class="mn-pro-content">
-                        <a href="product-detail.html" class="cart-pro-title">T-Shirt for men</a>
-                        <span class="cart-price"><span>$64.00</span> x 1</span>
-                        <div class="qty-plus-minus">
-                            <input class="qty-input" type="text" name="mn-qtybtn" value="1">
-                        </div>
-                        <a href="javascript:void(0)" class="cart-remove-item">×</a>
-                    </div>
-                </li>
-                <li class="cart-sidebar-list">
-                    <a href="product-detail.html" class="mn-pro-img"><img src="assets/img/product/13.jpg"
-                                                                          alt="product"></a>
-                    <div class="mn-pro-content">
-                        <a href="product-detail.html" class="cart-pro-title">Leather Belt</a>
-                        <span class="cart-price"><span>$59.00</span> x 1</span>
-                        <div class="qty-plus-minus">
-                            <input class="qty-input" type="text" name="mn-qtybtn" value="1">
-                        </div>
-                        <a href="javascript:void(0)" class="cart-remove-item">×</a>
-                    </div>
-                </li>
-                <li class="cart-sidebar-list">
-                    <a href="product-detail.html" class="mn-pro-img"><img src="assets/img/product/2.jpg"
-                                                                          alt="product"></a>
-                    <div class="mn-pro-content">
-                        <a href="product-detail.html" class="cart-pro-title">T-Shirt for girls</a>
-                        <span class="cart-price"><span>$39.00</span> x 1</span>
-                        <div class="qty-plus-minus">
-                            <input class="qty-input" type="text" name="mn-qtybtn" value="1">
-                        </div>
-                        <a href="javascript:void(0)" class="cart-remove-item">×</a>
-                    </div>
-                </li>
+                @endforeach
             </ul>
         </div>
         <div class="mn-cart-bottom">
@@ -64,24 +29,22 @@
                 <table class="table cart-table">
                     <tbody>
                     <tr>
-                        <td class="text-left">Sub-Total :</td>
-                        <td class="text-right">$417.00</td>
+                        <td class="text-left">Sous-Total :</td>
+                        <td class="text-right">{{ number_format($cartTotal) }} XOF</td>
                     </tr>
                     <tr>
-                        <td class="text-left">VAT (20%) :</td>
-                        <td class="text-right">$83.40</td>
+                        <td class="text-left">TVA (0%) :</td>
+                        <td class="text-right"></td>
                     </tr>
                     <tr>
                         <td class="text-left">Total :</td>
-                        <td class="text-right primary-color">$500.40</td>
+                        <td class="text-right primary-color">{{ number_format($cartTotal) }} XOF</td>
                     </tr>
                     </tbody>
                 </table>
             </div>
             <div class="cart_btn">
-                <a href="cart.html" class="mn-btn-1"><span>Cart<i class="ri-arrow-right-s-line"></i></span></a>
-                <a href="checkout.html" class="mn-btn-2"><span>Checkout<i
-                            class="ri-arrow-right-s-line"></i></span></a>
+                <a href="{{ route('cart') }}" class="mn-btn-2"><span>Voir mon panier<i class="ri-arrow-right-s-line"></i></span></a>
             </div>
         </div>
     </div>

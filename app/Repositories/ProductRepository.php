@@ -5,6 +5,7 @@ use App\Models\categorie;
 use App\Models\Galerie;
 use App\Models\Historicproduct;
 use App\Models\product;
+use App\Models\Souscategorie;
 use App\Services\Service;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Log;
@@ -23,11 +24,32 @@ class ProductRepository
         return $categorie;
     }
 
-    public function saveNewCategorie($data)
+    Public function getSouscategorie(){
+        $souscategorie = Souscategorie::where('statut', 1)->get();
+        return $souscategorie;
+    }
+
+    public function saveNewCategory($data)
     {
         try{
-            return $data;
+
+            //dd($data);
+            $nom_category = $data['name'];
+            $code_category = $data['code'];
+            $etat = '1';
+
+            $category = new Categorie;
+            $category->name = $nom_category;
+            $category->code = $code_category;
+            $category->statut = $etat;
+
+            //dd($category);
+
+            $category->save();
+            return $category;
+
         }catch(\Throwable $th){
+            Log::error($th->getMessage());
         }
     }
 
@@ -38,9 +60,25 @@ class ProductRepository
             $category->name = $data['nom'];
             $category->save();
             return $category;
+        }catch(\Throwable $th){
+            Log::error($th->getMessage());
+        }
+    }
+
+    public function saveNewSubcategory($data)
+    {
+        try{
+            $souscategory = new Souscategorie;
+            $souscategory->categorie_id =  $data['id_category'];
+            $souscategory->name =  $data['name'];
+            $souscategory->statut =  $data['statut'];
+
+            $souscategory->save();
+
+            return$souscategory;
 
         }catch(\Throwable $th){
-
+            Log::error($th->getMessage());
         }
     }
 
@@ -92,7 +130,7 @@ class ProductRepository
                 "description" => $getProduct->description,
                 "category" => $categoryProduct->name,
                 "idcategory" => $getProduct->categorie,
-                "typeachat" => $getProduct->typeachat,
+                "typeachat" => $getProduct->type_achat,
                 "picture" => $getProduct->image,
                 "slug" => $getProduct->slug,
                 "archive" => $getProduct->archive,
@@ -112,45 +150,83 @@ class ProductRepository
         }
     }
 
+    public function productBycategorie($idcategorie){
+        $products = Product::where('categorie',$idcategorie)->where('archive',null)->get();
+        $i = 0;
+        $product = [];
+
+        foreach ($products as $value){
+            $categoryProduct = Categorie::find($value->categorie);
+
+            $product[$i]["id"] = $value->id;
+            $product[$i]["name"] = $value->nom;
+            $product[$i]["amount"] = $value->montant;
+            $product[$i]["quantity"] = $value->stock;
+            $product[$i]["description"] = $value->description;
+            $product[$i]["category"] = $categoryProduct->name;
+            $product[$i]["picture"] = $value->image;
+            $product[$i]["slug"] = $value->slug;
+            $product[$i]["date_publication"] = $value->created_at;
+            $product[$i]["code_product"] = $value->code_product;
+            $i++;
+
+        }
+        return $product;
+    }
+
     public function saveNewProduct($data)
     {
         try{
-            $image = $this->service->uploadFile($data['image']);
-            $codeProduct = $this->service->codeProduct($data['categorie']);
+            if($data['code_product']){
+                $product = Product::where('code_product', $data['code_product'])->first();
+                $product->nom = $data['name'];
+                $product->montant = $data['amount'];
+                $product->description = $data['description'];
 
-            DB::beginTransaction();
-            $product = new Product;
-            $product->nom = $data['name'];
-            $product->montant = $data['amount'];
-            $product->description = $data['description'];
-            $product->categorie = $data['categorie'];
-            $product->image = $image;
-            $product->type_achat = $data['type_achat'];
-            $product->stock = $data['quantity'];
-            $product->code_product = $codeProduct;
-            $product->nbrvente = 0;
-            $product->slug = $codeProduct.'_'.$data['slug'];
+                $product->save();
 
-            //dd($product);
-            $product->save();
+            } else {
 
-            // traitement de la galerie and save
-            foreach ($data['galerie'] as $itemFile) {
-                if ($itemFile->isValid()) {
-                    $name = $this->service->uploadFile($itemFile);
-                    Galerie::create([
-                        'image' => $name,
-                        'code_product' => $codeProduct
-                    ]);
+                $image = $this->service->uploadFile($data['image']);
+                $codeProduct = $this->service->codeProduct($data['categorie']);
+
+                DB::beginTransaction();
+                $product = new Product;
+                $product->nom = $data['name'];
+                $product->montant = $data['amount'];
+                $product->description = $data['description'];
+                $product->categorie = $data['categorie'];
+                $product->subcategorie = $data['subcategorie'];
+                $product->image = $image;
+                $product->type_achat = $data['type_achat'];
+                $product->stock = $data['quantity'];
+                $product->code_product = $codeProduct;
+                $product->nbrvente = 0;
+                $product->slug = $codeProduct.'_'.$data['slug'];
+
+                //dd($product);
+                $product->save();
+
+                // traitement de la galerie and save
+                foreach ($data['galerie'] as $itemFile) {
+                    if ($itemFile->isValid()) {
+                        $name = $this->service->uploadFile($itemFile);
+                        Galerie::create([
+                            'image' => $name,
+                            'code_product' => $codeProduct
+                        ]);
+                    }
                 }
+                // gestion de l'historique
+                $this->service->historiqStockProduct($codeProduct,$data['quantity']);
+                DB::commit();
+
             }
-            // gestion de l'historique
-            $this->service->historiqStockProduct($codeProduct,$data['quantity']);
-            DB::commit();
             // reslute
             return response()->json([
                 'data' => $product
             ], 200);
+
 
         }catch(\Throwable $th){
             Log::error($th->getMessage());
@@ -159,5 +235,22 @@ class ProductRepository
                 'message' => $th->getMessage()
             ], 500);
         }
+    }
+
+    public function saveFirstPictureofProduct($data)
+    {
+        try{
+            //dd($request->all());
+            $image = $this->service->uploadFile($data['picture']);
+            $product = Product::where('code_product',$data['code_product'])->first();
+            $product->image = $image;
+            $product->save();
+            return  $product;
+
+        }catch(\Throwable $th){
+            Log::error($th->getMessage());
+            return back()->with('error', 'Une erreur est survenus !');
+        }
+
     }
 }

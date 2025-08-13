@@ -11,12 +11,7 @@
 <main class="wrapper sb-default">
 
     <!-- Loader -->
-    <div id="mn-overlay">
-        <div class="loader">
-            <img src="assets/img/logo/loader.png" alt="loader">
-            <span class="shape"></span>
-        </div>
-    </div>
+
 
     <!-- Header -->
     <header class="sb-hide">

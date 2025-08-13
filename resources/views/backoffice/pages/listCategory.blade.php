@@ -1,4 +1,4 @@
-@extends('admin.layout')
+@extends('backoffice.layout')
 
 @section('content')
 <!-- Vertical Overlay-->
@@ -18,7 +18,7 @@
                 </div>
             </div>
             <!-- end page title -->
-            @include('admin.status')
+            @include('backoffice.status')
 
             <div class="row">
                 <div class="col-lg-12">

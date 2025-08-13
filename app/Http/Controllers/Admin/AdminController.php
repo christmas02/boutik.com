@@ -4,6 +4,7 @@ namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
 use App\Repositories\ProductRepository;
+use App\Services\Service;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Log;
@@ -12,9 +13,12 @@ use Illuminate\Support\Str;
 class AdminController extends Controller
 {
     protected $productRepository;
+    protected $service;
 
-    public function __construct(ProductRepository $productRepository){
+
+    public function __construct(ProductRepository $productRepository, Service $service){
         $this->productRepository = $productRepository;
+        $this->service = $service;
     }
     //
     public function index(){
@@ -36,7 +40,7 @@ class AdminController extends Controller
                 'code' => $request->get('code_categ'),
                 'statut' => '1'
             ];
-            $newCategorie = $this->productRepository->saveNewCategorie($data);
+            $newCategorie = $this->productRepository->saveNewCategory($data);
 
             return redirect('/list/categorie')->with('success', 'La nouvelle catégorie a été bien eregistre');
 
@@ -73,13 +77,41 @@ class AdminController extends Controller
         }
 
     }
-    //
+
+    //sub category methode
+    public function listSubcatgory()
+    {
+        $category = $this->productRepository->getCategorie();
+        $subCategory = $this->productRepository->getSouscategorie();
+        return view('backoffice.pages.listSubcategory', ['souscategorie' => $subCategory, 'categories' => $category]);
+    }
+
+    public function saveSouscategory(Request $request)
+    {
+        try{
+            $data = [
+                'name' => $request->get('nom_subcategory'),
+                'id_category' => $request->get('id_category'),
+                'statut' => '1'
+            ];
+
+            $newSubcategory = $this->productRepository->saveNewSubcategory($data);
+
+
+            return redirect('/list/sous/categorie')->with('success', 'La nouvelle sous catégorie a été bien eregistre');
+
+        }catch(\Throwable $th){
+            //dd($th);
+            Log::error($th->getMessage());
+            return redirect('/list/sous/categorie')->with('error', $th->getMessage());
+        }
+    }
 
     // Product methode
-
     public function createProduct(){
         $category = $this->productRepository->getCategorie();
-        return view('backoffice.pages.creatProduct', ['categories' => $category]);
+        $subcategory = $this->productRepository->getSouscategorie();
+        return view('backoffice.pages.creatProduct', ['categories' => $category, 'sous_categories' => $subcategory]);
     }
     public function listProduct()
     {
@@ -108,6 +140,7 @@ class AdminController extends Controller
                 'amount' => $request->amount,
                 'description' => $request->description,
                 'categorie' => $request->categorie,
+                'subcategorie' => $request->subcategorie,
                 'type_achat' => $request->typeachat,
                 'quantity' => $request->quantity,
                 'image' => $request->picture,
@@ -138,7 +171,7 @@ class AdminController extends Controller
             $product =  $this->productRepository->findProduct($code_product);
            // dd($product);
 
-            return view('backoffice.pages.detailProduct',['categories' => $category,'product'=> $product]);
+            return view('backoffice.pages.detailProduct',['categories' => $category,'produit'=> $product]);
 
         }catch (\Throwable $th){
             dd($th);
@@ -171,25 +204,18 @@ class AdminController extends Controller
             return back()->with('error', 'Une erreur est survenus !');
         }
     }
+
     public function updateProduct(Request $request)
     {
         try{
-            ///dd($request->all());
-            $code_product = $request->code_product;
-
-            $name = $request->name;
-            $amount = $request->amount;
-            $description = $request->description;
-            $category = $request->categorie;
-            $subcategory = $request->souscategorie;
-
-            $product = Produit::where('code_product',$code_product)->first();
-            $product->nom = $name;
-            $product->montant = $amount;
-            $product->description = $description;
-            $product->souscategorie = $subcategory;
-            $product->categorie = $category;
-            $product->save();
+            $data = [
+                'name' => $request->name,
+                'amount' => $request->amount,
+                'description' => $request->description,
+                'categorie' => $request->categorie,
+                'code_product' => $request->code_product,
+            ];
+            $newProduct = $this->productRepository->saveNewProduct($data);
 
             return back()->with('success', 'La mise a jour du produit a été bien éffèctuer');
 
@@ -202,12 +228,11 @@ class AdminController extends Controller
     {
         try{
             //dd($request->all());
-            $code_product = $request->code_product;
-            $image = self::uploadFile($request->picture);
-            $product = Produit::where('code_product',$code_product)->first();
-            $product->image = $image;
-            $product->save();
-
+            $data = [
+                'code_product' => $request->code_product,
+                'picture' => $request->picture,
+            ];
+            $newProduct = $this->productRepository->saveFirstPictureofProduct($data);
             return back()->with('success', 'La mise a jour du produit a été bien éffèctuer');
 
         }catch(\Throwable $th){
