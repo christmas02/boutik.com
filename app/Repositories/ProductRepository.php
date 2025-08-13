@@ -1,7 +1,7 @@
 <?php
 namespace App\Repositories;
 
-use App\Models\categorie;
+use App\Models\Categorie;
 use App\Models\Galerie;
 use App\Models\Historicproduct;
 use App\Models\Product;
