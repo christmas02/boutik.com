@@ -12,7 +12,7 @@ class GeneratePdf
     {
         try{
             // Augmenter la limite de temps d'exécution à 120 secondes
-            set_time_limit(1200);
+            // set_time_limit(1200);
             // Configure Dompdf
             //dd($data);
             $options = new Options();

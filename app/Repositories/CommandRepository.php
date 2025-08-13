@@ -21,10 +21,10 @@ class CommandRepository
     public  function saveNewCommand($infoCustomer, $identification_commande, $panier, $amountTotal){
         try {
             DB::beginTransaction();
-            //code...
-            //dd($infoCustomer);
+            // code...
+            // dd($infoCustomer);
             // Augmenter la limite de temps d'exécution à 120 secondes
-            set_time_limit(1200);
+            // set_time_limit(1200);
             $command = new Command;
             $user = $infoCustomer['username'].' '.$infoCustomer['firstname'];
 

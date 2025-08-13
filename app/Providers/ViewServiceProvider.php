@@ -14,6 +14,7 @@ class ViewServiceProvider extends ServiceProvider
         // Ici, tu listes toutes les vues qui doivent recevoir ces variables
         View::composer([
             'layouts.simple.menu_principal',
+            'layouts.simple.mobile_menu',
             'layouts.simple.header',
             'layouts.simple.cart_sidebar',
         ], MenuComposer::class);

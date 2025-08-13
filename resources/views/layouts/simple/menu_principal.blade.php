@@ -7,8 +7,7 @@
                         <a href="/">Home</a>
                     </li>
                     <li class="dropdown drop-list">
-                        <a href="javascript:void(0)" class="dropdown-arrow">Categories<i
-                                class="ri-arrow-down-s-line"></i></a>
+                        <a href="javascript:void(0)" class="dropdown-arrow">Categories<i class="ri-arrow-down-s-line"></i></a>
                         <ul class="mega-menu d-block">
                             <li class="d-flex">
                                 <span class="bg"></span>
