@@ -296,11 +296,11 @@
                                     <tr>
                                         <th scope="row"></th>
                                         <td class="text-start">
-                                            <span class="fw-medium">{{$item->name_product }}</span>
+                                            <span class="fw-medium">{{$item['name_product'] }}</span>
                                         </td>
-                                        <td> {{ number_format($item->priceUnit ) }} Fr CFA</td>
-                                        <td>{{ $item->quantity }}</td>
-                                        <td class="text-end">{{ number_format($item->prices) }}  XOF</td>
+                                        <td> {{ number_format($item['priceUnit'] ) }} Fr CFA</td>
+                                        <td>{{ $item['quantity'] }}</td>
+                                        <td class="text-end">{{ number_format($item['prices']) }}  XOF</td>
                                     </tr>
                                     @endforeach
                                     </tbody>

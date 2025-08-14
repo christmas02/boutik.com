@@ -103,14 +103,14 @@
                 @foreach($data['panier'] as $item)
                 <tr>
                     <td style="padding:20px 25px 20px 0" width="80">
-                        <a href="#" style="color:#000000;text-decoration:none" ><img alt="" src="{{ env('IMAGES_PATH_MAIL') }}/{{ $item->picture }}" style="display:block" width="80" ></a>
+                        <a href="#" style="color:#000000;text-decoration:none" ><img alt="" src="{{ env('IMAGES_PATH_MAIL') }}/{{ $item['picture'] }}" style="display:block" width="80" ></a>
                     </td>
                     <td style="font-family:Arial,Helvetica,sans-serif;font-size:14px;color:#000000;line-height:20px;padding:25px 20px 15px 0" valign="top">
-                        <a href="#" style="color:#000000;text-decoration:none" > {{ $item->name_product }} </a>
+                        <a href="#" style="color:#000000;text-decoration:none" > {{ $item['name_product'] }} </a>
                         <br>
                     </td>
-                    <td style="font-family:Arial,Helvetica,sans-serif;font-size:14px;color:#000000;text-align:right;padding:25px 0 0 0" valign="top" width="60">{{ $item->quantity }} &nbsp;pcs</td>
-                    <td style="font-family:Arial,Helvetica,sans-serif;font-size:14px;color:#000000;text-align:right;padding:25px 0 0 0" valign="top" width="105">{{ number_format($item->prices) }} &nbsp; XOF</td>
+                    <td style="font-family:Arial,Helvetica,sans-serif;font-size:14px;color:#000000;text-align:right;padding:25px 0 0 0" valign="top" width="60">{{ $item['quantity']  }} &nbsp;pcs</td>
+                    <td style="font-family:Arial,Helvetica,sans-serif;font-size:14px;color:#000000;text-align:right;padding:25px 0 0 0" valign="top" width="105">{{ number_format($item['prices'] ) }} &nbsp; XOF</td>
                 </tr>
                 @endforeach
                 <tr>
@@ -118,7 +118,7 @@
                 </tr>
                 <tr>
                     <td colspan="3" style="padding:15px 0 5px 0;font-family:Arial,Helvetica,sans-serif;font-size:14px;color:#000000">Montant total de la commande</td>
-                    <td style="padding:15px 0 5px 0;font-family:Arial,Helvetica,sans-serif;font-size:14px;color:#000000;text-align:right" valign="top" width="105">135,79&nbsp;€</td>
+                    <td style="padding:15px 0 5px 0;font-family:Arial,Helvetica,sans-serif;font-size:14px;color:#000000;text-align:right" valign="top" width="105">{{ number_format($data['amount_ttc']) }}&nbsp;XOF</td>
                 </tr>
                 </tbody>
             </table>
