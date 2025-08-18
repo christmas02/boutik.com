@@ -40,7 +40,7 @@ jobs:
           username: admin@mifonup.com
           password: e,6Z.Gm^_tKA
           local-dir: ./
-          server-dir: /public_html/boutik.com/
+          server-dir: /public_html/boutik/
           exclude: |
             **/.git*
             **/.git*/**
