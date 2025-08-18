@@ -38,7 +38,7 @@ class Confirmedcommand extends Mailable
     public function build()
     {
         //var_dump($this->user);
-        return $this->from('noreplay@boutik.ci', 'Service commercial')
+        return $this->from('noreply@mifonup.com','Service commercial')
             //->cc('noelkini1@gmail.com') // Remplacez par votre adresse email
             ->subject('Validation de Commande')
             ->markdown('mail.confirmedcommande')

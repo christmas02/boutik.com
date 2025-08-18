@@ -55,17 +55,21 @@ class SendCommandEmailJob implements ShouldQueue
             ]);
 
             // send mail au customer
-            $sendMail->sendMailAfterSaveCommande($this->infoClient['email'], $invoicePdf, $user, $this->identification_commande, $data);
-            Log::info("Envoie du mail avec succès", [
-                'identifiant' => $this->identification_commande
-            ]);
-
-            // update status send mail commande
-            $commandRepository->updateCommandAfterSendMail($this->identification_commande);
-            Log::info("Mise a jour de la commande avec succès", [
-                'identifiant' => $this->identification_commande
-            ]);
-
+            $reponseSendMail = $sendMail->sendMailAfterSaveCommande($this->infoClient['email'], $invoicePdf, $user, $this->identification_commande, $data);
+            if($reponseSendMail == true) {
+                Log::info("Envoie du mail avec succès", [
+                    'identifiant' => $this->identification_commande
+                ]);
+                // update status send mail commande
+                $commandRepository->updateCommandAfterSendMail($this->identification_commande);
+                Log::info("Mise a jour de la commande avec succès", [
+                    'identifiant' => $this->identification_commande
+                ]);
+            }else{
+                Log::info("Erreur envoie de mail", [
+                    'identifiant' => $this->identification_commande
+                ]);
+            }
 
         }catch(\Throwable $e){
             Log::error("Erreur dans SendCommandEmailJob : " . $e->getMessage(), [
