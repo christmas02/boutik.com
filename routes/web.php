@@ -5,6 +5,8 @@ use App\Http\Controllers\Client\ShoppingController;
 use App\Http\Controllers\UserController;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\Admin\AdminController;
+use App\Http\Controllers\Admin\CommandController;
+
 
 /*
 |--------------------------------------------------------------------------
@@ -37,6 +39,8 @@ Route::controller(UserController::class)->group(function () {
 Route::controller(ShoppingController::class)->group(function () {
     Route::get('/','home')->name('home.page');
     Route::get('/produits_de_categorie/{id}/{categorie}', 'productCategory')->name('productCat');
+    Route::get('/produits_de_sous_categorie/{id}/{name}', 'productSubcategory')->name('productScat');
+
     Route::get('/produit/{code_produit}', 'showProduct')->name('showProduct');
     Route::get('/valide_panier', 'validePanier')->name('checkout');
     Route::post('/valide_commande', 'saveCommande');
@@ -76,7 +80,7 @@ Route::group(['middleware' => 'auth'], function () {
         Route::get('/supprimer/categorie/{identifiant}', 'deletCategory')->name('deletCategory');
         Route::get('/supprimer/sous_categorie/{identifiant}', 'deletSousCategory')->name('deletSousCategory');
     });
-    Route::controller(CommandeController::class)->group(function () {
+    Route::controller(CommandController::class)->group(function () {
         // Commande
         Route::get('/list/command', 'listCommand')->name('listCommand');
         Route::get('/detail/commande/{identifiant_commande}', 'detailCommand')->name('detailCommand');

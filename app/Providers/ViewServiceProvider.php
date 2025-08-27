@@ -16,6 +16,7 @@ class ViewServiceProvider extends ServiceProvider
             'layouts.simple.menu_principal',
             'layouts.simple.mobile_menu',
             'layouts.simple.header',
+            'layouts.simple.footer',
             'layouts.simple.cart_sidebar',
         ], MenuComposer::class);
     }

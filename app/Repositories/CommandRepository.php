@@ -2,11 +2,47 @@
 namespace App\Repositories;
 
 use App\Models\Command;
+use App\Models\Product;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Log;
 
 class CommandRepository
 {
+    public function getCommand() { return Command::all(); }
+
+    public function firstCommand($identification_commande)
+    {
+        try{
+            $command = Command::where('identifiant_commande',$identification_commande)->first();
+            $products = json_decode($command->products);
+            $data_product = [];
+            $i = 0;
+            //dd($products);
+            foreach ($products as $items){
+                $product = Product::find($items->id_product);
+                $data_product[$i]["id_product"] = $product->id;
+                $data_product[$i]["name_product"] = $product->nom;
+                $data_product[$i]["picture"] = $product->image;
+                $data_product[$i]["priceUnit"] = $items->priceUnit;
+                $data_product[$i]["prices"] = $items->prices;
+                $data_product[$i]["code_product"] = $product->code_product;
+                $data_product[$i]["quantity"] = $items->quantity;
+                $i++;
+            }
+
+            return $data = [
+                'command' => $command,
+                'products' => $data_product,
+            ];
+
+        }catch(\Throwable $th){
+            Log::error('commandRepository-save '.$th->getMessage());
+            return response()->json([
+                'message' => $th->getMessage()
+            ], 500);
+        }
+    }
+
 
     public function saveNewCommand($infoClient, $identification_commande, $panier, $amountTotal){
         try {

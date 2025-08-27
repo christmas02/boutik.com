@@ -1,4 +1,4 @@
-@extends('admin.layout')
+@extends('backoffice.layout')
 
 @section('content')
 <!-- Vertical Overlay-->

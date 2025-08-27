@@ -6,8 +6,7 @@
                     <div class="col-sm-12 col-lg-3 mn-footer-cat">
                         <div class="mn-footer-widget mn-footer-company">
                             <img src="assets/img/logo/logo.png" class="mn-footer-logo" alt="footer logo">
-                            <img src="assets/img/logo/logo-dark.png" class="mn-footer-dark-logo"
-                                 alt="footer logo">
+                            <img src="assets/img/logo/logo-dark.png" class="mn-footer-dark-logo" alt="footer logo">
                             <p class="mn-footer-detail">The Mantu is the biggest market of grocery products. Get
                                 your daily needs from our store.</p>
 
@@ -15,27 +14,12 @@
                     </div>
                     <div class="col-sm-12 col-lg-2 mn-footer-info">
                         <div class="mn-footer-widget">
-                            <h4 class="mn-footer-heading">Category</h4>
+                            <h4 class="mn-footer-heading">Categorie</h4>
                             <div class="mn-footer-links mn-footer-dropdown">
                                 <ul class="align-items-center">
-                                    <li class="mn-footer-link">
-                                        <a href="shop-right-sidebar.html">Fashion</a>
-                                    </li>
-                                    <li class="mn-footer-link">
-                                        <a href="shop-right-sidebar.html">Cosmetics</a>
-                                    </li>
-                                    <li class="mn-footer-link">
-                                        <a href="shop-right-sidebar.html">Bags & Purse</a>
-                                    </li>
-                                    <li class="mn-footer-link">
-                                        <a href="shop-right-sidebar.html">Shoes</a>
-                                    </li>
-                                    <li class="mn-footer-link">
-                                        <a href="shop-right-sidebar.html">Belts</a>
-                                    </li>
-                                    <li class="mn-footer-link">
-                                        <a href="shop-right-sidebar.html">Perfumes</a>
-                                    </li>
+                                    @foreach($categories as $categorie)
+                                    <li class="mn-footer-link"><a href="shop-right-sidebar.html">{{ $categorie->name }}</a></li>
+                                    @endforeach
                                 </ul>
                             </div>
                         </div>
@@ -47,22 +31,15 @@
                                 <div class="mn-footer-links mn-footer-dropdown">
                                     <ul class="align-items-center">
                                         <li class="mn-footer-link mn-foo-location">
-													<span class="mt-15px">
-														<i class="ri-map-pin-line"></i>
-													</span>
-                                            <p>Cote d'ivoire abidjan
-                                            </p>
+                                            <span class="mt-15px"><i class="ri-map-pin-line"></i></span>
+                                            <p>Cote d'ivoire abidjan</p>
                                         </li>
                                         <li class="mn-footer-link mn-foo-call">
-													<span>
-														<i class="ri-whatsapp-line"></i>
-													</span>
-                                            <a href="tel:+009876543210">+00 9876543210</a>
+                                            <span><i class="ri-whatsapp-line"></i></span>
+                                            <a href="tel:+2250565121084">+225 0565121084</a>
                                         </li>
                                         <li class="mn-footer-link mn-foo-mail">
-													<span>
-														<i class="ri-mail-line"></i>
-													</span>
+                                            <span><i class="ri-mail-line"></i></span>
                                             <a href="mailto:example@email.com">example@email.com</a>
                                         </li>
                                     </ul>
@@ -98,14 +75,13 @@
                         <div class="footer-copy">
                             <div class="footer-bottom-copy ">
                                 <div class="mn-copy">Copyright © <span id="copyright_year"></span>
-                                    <a class="site-name" href="index.html">The Mantu</a> all rights reserved.
+                                    <a class="site-name" href="index.html">boutik.</a>
                                 </div>
                             </div>
                         </div>
                         <div class="footer-bottom-right">
                             <div class="footer-bottom-payment d-flex justify-content-center">
-                                <div class="payment-link">
-                                </div>
+                                <div class="payment-link"></div>
                             </div>
                         </div>
                     </div>

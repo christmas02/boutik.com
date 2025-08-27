@@ -1,4 +1,4 @@
-@extends('admin.layout')
+@extends('backoffice.layout')
 
 @section('content')
 <!-- Vertical Overlay-->
@@ -21,7 +21,7 @@
                 </div>
             </div>
             <!-- end page title -->
-            @include('admin.status')
+            @include('backoffice.status')
             <div class="row">
                 <div class="col-xl-8">
                     <div class="card">
@@ -85,7 +85,7 @@
                                 </table>
                             </div>
                             <br>
-                            @if($transaction != NULL)
+
                             <div class="table-responsive">
                                 <table id="" class="display table table-bordered" style="width:100%">
                                     <thead>
@@ -98,18 +98,12 @@
                                     </tr>
                                     </thead>
                                     <tbody>
-                                    <tr>
-                                        <td>#</td>
-                                        <td>{{ $transaction->transaction_id }}</td>
-                                        <td>{{ $transaction->amount }}</td>
-                                        <td>{{ $transaction->status }}</td>
-                                        <td>{{ $transaction->description }}</td>
-                                    </tr>
+
                                     </tbody>
 
                                 </table>
                             </div>
-                            @endif
+
 
                         </div>
                     </div>

@@ -46,13 +46,39 @@ class ShoppingController extends Controller
             $content = Cart::getContent();
             $total = Cart::getTotal();
             $products = $this->productRepository->productBycategorie($idCategorie);
+            $sousCategory = $this->productRepository->getSouscategorybyCategory($idCategorie);
 
             return view('shop.categorie', [
                 'products' => $products,
                 'categorie' => $nameCategorie,
                 'cartCount' => $cartCount,
                 'content' => $content,
-                'prixTotal' => $total
+                'prixTotal' => $total,
+                'sousCategory' => $sousCategory
+            ]);
+        }catch(\Throwable $th){
+            Log::error($th->getMessage());
+            return back()->with('error', 'Une erreur est survenus !');
+
+        }
+    }
+
+    public function productSubcategory($id, $name)
+    {
+        try{
+            $cartCount = Cart::getTotalQuantity();
+            $content = Cart::getContent();
+            $total = Cart::getTotal();
+            $products = $this->productRepository->productBysouscategorie($id);
+            $sousCategory = $this->productRepository->getSouscategorybyCategory($id);
+
+            return view('shop.categorie', [
+                'products' => $products,
+                'categorie' => $name,
+                'cartCount' => $cartCount,
+                'content' => $content,
+                'prixTotal' => $total,
+                'sousCategory' => $sousCategory
             ]);
         }catch(\Throwable $th){
             Log::error($th->getMessage());

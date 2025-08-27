@@ -25,8 +25,13 @@ class ProductRepository
     }
 
     Public function getSouscategorie(){
-        $souscategorie = Souscategorie::where('statut', 1)->get();
-        return $souscategorie;
+        $sousCategory = Souscategorie::where('statut', 1)->get();
+        return $sousCategory;
+    }
+
+    public function getSouscategorybyCategory($idCategorie){
+        $sousCategory = Souscategorie::where('categorie_id',$idCategorie)->get();
+        return $sousCategory;
     }
 
     public function saveNewCategory($data)
@@ -152,6 +157,30 @@ class ProductRepository
 
     public function productBycategorie($idcategorie){
         $products = Product::where('categorie',$idcategorie)->where('archive',null)->get();
+        $i = 0;
+        $product = [];
+
+        foreach ($products as $value){
+            $categoryProduct = Categorie::find($value->categorie);
+
+            $product[$i]["id"] = $value->id;
+            $product[$i]["name"] = $value->nom;
+            $product[$i]["amount"] = $value->montant;
+            $product[$i]["quantity"] = $value->stock;
+            $product[$i]["description"] = $value->description;
+            $product[$i]["category"] = $categoryProduct->name;
+            $product[$i]["picture"] = $value->image;
+            $product[$i]["slug"] = $value->slug;
+            $product[$i]["date_publication"] = $value->created_at;
+            $product[$i]["code_product"] = $value->code_product;
+            $i++;
+
+        }
+        return $product;
+    }
+
+    public function productBysouscategorie($id){
+        $products = Product::where('subcategorie',$id)->where('archive',null)->get();
         $i = 0;
         $product = [];
 
