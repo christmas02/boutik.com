@@ -11,7 +11,7 @@
             <ul class="mn-cart-pro-items">
                 @foreach ($content as $item)
                 <li class="cart-sidebar-list">
-                    <a href="/" class="mn-pro-img"><img src="{{ env('IMAGES_PATH') }}/{{ $item->picture }}" alt="{{ $item->picture }}"></a>
+                    <a href="/" class="mn-pro-img"><img src="{{asset('uploads/'.$item->picture ) }}" alt="{{ $item->picture }}"></a>
                     <div class="mn-pro-content">
                         <a href="" class="cart-pro-title">{{ $item['name'] }}</a>
                         <span class="cart-price"><span>{{ number_format($item->price, 0, ',', ' ') }} XOF</span> x {{ $item->quantity }}</span>

@@ -58,7 +58,7 @@
                                     <tr class="mn-cart-product">
                                         <td data-label="Product" class="mn-cart-pro-name">
                                             <a href="product-detail.html">
-                                                <img class="mn-cart-pro-img" src="{{ env('IMAGES_PATH') }}/{{ $item->picture }}" alt="">
+                                                <img class="mn-cart-pro-img" src="{{asset('uploads/'.$item->picture ) }}" alt="">
                                                 {{ $item->name }}
                                             </a>
                                         </td>

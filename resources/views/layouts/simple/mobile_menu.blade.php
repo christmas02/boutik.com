@@ -6,7 +6,7 @@
     <div class="mn-menu-content">
         <ul>
             <li>
-                <a href="index.html">Home</a>
+                <a href="">Home</a>
             </li>
             <li>
                 <a href="javascript:void(0)">Categories</a>
