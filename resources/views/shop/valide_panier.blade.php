@@ -162,8 +162,8 @@
                                     <div class="mn-pro-image-outer">
                                         <div class="mn-pro-image">
                                             <a href="product-detail.html" class="image">
-                                                <img class="main-image" src="{{ env('IMAGES_PATH') }}/{{ $item->picture }}" alt="{{ $item->picture }}">
-                                                <img class="hover-image" src="{{ env('IMAGES_PATH') }}/{{ $item->picture }}" alt="{{ $item->picture }}">
+                                                <img class="main-image" src="{{asset('uploads/'.$item->picture ) }}" alt="{{ $item->picture }}">
+                                                <img class="hover-image" src="{{asset('uploads/'.$item->picture ) }}" alt="{{ $item->picture }}">
                                             </a>
                                         </div>
                                     </div>

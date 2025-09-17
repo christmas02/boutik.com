@@ -38,7 +38,7 @@ class Confirmedcommand extends Mailable
     public function build()
     {
         //var_dump($this->user);
-        return $this->from('noreply@boutik17.com', 'Boutik17')
+        return $this->from('no_reply@boutik17.com', 'Boutik17')
             ->cc('noreply@boutik17.com') // Remplacez par votre adresse email
             ->subject('Validation de Commande')
             ->markdown('mail.confirmedcommande')
