@@ -34,7 +34,7 @@
                                             <div class="swiper-wrapper">
                                                 <div class="swiper-slide">
                                                     <a class="container-image">
-                                                        <img src="{{ env('IMAGES_PATH') }}/{{ $produit['picture'] }}" alt="" class="img-fluid d-block" />
+                                                        <img src="{{asset('uploads/'.$produit['picture'])}}" alt="" class="img-fluid d-block" />
                                                         <div class="overlay">
                                                             <button data-bs-toggle="modal" data-bs-target="#exampleModalUpadeImage{{ $produit['id'] }}" class="btn btn-sm btn-primary btn-rounded">
                                                                 <i class="ri-pencil-fill align-bottom"></i>
@@ -95,7 +95,7 @@
                                                     <div class="nav-slide-item">
                                                         <a class="container-image">
                                                             <div class="" style="padding: 20px; border:1px solid red;">
-                                                                <img src="{{ env('IMAGES_PATH') }}/{{ $items->image }}" alt="" class="img-fluid d-block" />
+                                                                <img src="{{asset('uploads/'.$items->image }}" alt="" class="img-fluid d-block" />
                                                             </div>
                                                         </a>
                                                     </div>
