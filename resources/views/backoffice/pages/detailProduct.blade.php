@@ -95,7 +95,7 @@
                                                     <div class="nav-slide-item">
                                                         <a class="container-image">
                                                             <div class="" style="padding: 20px; border:1px solid red;">
-                                                                <img src="{{asset('uploads/'.$items->image }}" alt="" class="img-fluid d-block" />
+                                                                <img src="{{asset('uploads/'.$items->image) }}" alt="" class="img-fluid d-block" />
                                                             </div>
                                                         </a>
                                                     </div>
