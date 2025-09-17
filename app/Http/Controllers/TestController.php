@@ -2,9 +2,24 @@
 
 namespace App\Http\Controllers;
 
+use Illuminate\Support\Facades\Mail;
+
 class TestController extends Controller
 {
     //
+    public static function testSendMail()
+    {
+        try{
+            Mail::raw('Test mail', function($m) {
+                $m->to('alexisdjidonou@gmail.com')
+                    ->subject('Test SMTP');
+            });
+            return 'mail send';
+        }catch(\Throwable $th){
+            dd($th->getMessage());
+        }
+
+    }
     public static function encryptPin()
     {
         $pin = "3451";
@@ -22,7 +37,7 @@ EOD;
         if (!$publicKey) {
             die("❌ Erreur : Clé publique invalide");
         }
-        
+
 
 // Chiffrement RSA avec padding PKCS1
         if (openssl_public_encrypt($pin, $encrypted, $publicKey, OPENSSL_PKCS1_PADDING)) {

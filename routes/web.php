@@ -21,6 +21,7 @@ use App\Http\Controllers\Admin\CommandController;
 
 Route::controller(TestController::class)->group(function () {
     Route::get('/pin_encrypte','encryptPin');
+    Route::get('/test_send_mail','testSendMail');
 });
 
 //view shop
