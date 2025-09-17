@@ -2,7 +2,7 @@
 
 use App\Http\Controllers\Client\CartController;
 use App\Http\Controllers\Client\ShoppingController;
-use App\Http\Controllers\UserController;
+use App\Http\Controllers\TestController;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\Admin\AdminController;
 use App\Http\Controllers\Admin\CommandController;
@@ -19,6 +19,10 @@ use App\Http\Controllers\Admin\CommandController;
 |
 */
 
+Route::controller(TestController::class)->group(function () {
+    Route::get('/pin_encrypte','encryptPin');
+});
+
 //view shop
 Route::view('shopping', 'shop.index')->name('shopping');
 Route::view('categorie', 'shop.categorie')->name('categorie');
@@ -28,7 +32,7 @@ Route::view('valide_panier', 'shop.valide_panier')->name('valide_panier');
 Route::view('model_mail_commande', 'mail.template');
 
 
-Route::controller(UserController::class)->group(function () {
+Route::controller(TestController::class)->group(function () {
     Route::get('authentification','loginScreen')->name('login');
     Route::get('mot_de_passe_oublier','forgetpasswordScreen')->name('forgetpassword');
     Route::post('connexion','connexion');
@@ -100,7 +104,7 @@ Route::group(['middleware' => 'auth'], function () {
         Route::post('/updateCustomer', 'updateCustomer')->name('updateCustomer');
     });
 
-    Route::controller(UserController::class)->group(function () {
+    Route::controller(TestController::class)->group(function () {
         Route::get('/nouveau/administrateur','createAdministrator');
         Route::get('/liste/administrateur','listAdministrator');
         Route::post('/save/administrateur','saveAdministrator');

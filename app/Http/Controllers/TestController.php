@@ -1,0 +1,37 @@
+<?php
+
+namespace App\Http\Controllers;
+
+class TestController extends Controller
+{
+    //
+    public static function encryptPin()
+    {
+        $pin = "3451";
+
+// Ta clé publique reformatée en PEM
+        $publicKeyPem = <<<EOD
+-----BEGIN PUBLIC KEY-----
+MIGfMA0GCSqGSIb3DQEBAQUAA4GNADCBiQKBgQCkq3XbDI1s8Lu7SpUBP+bqOs/MC6PKWz6n/0UkqTiOZqKqaoZClI3BUDTrSIJsrN1Qx7ivBzsaAYfsB0CygSSWay4iyUcnMVEDrNVOJwtWvHxpyWJC5RfKBrweW9b8klFa/CfKRtkK730apy0Kxjg+7fF0tB4O3Ic9Gxuv4pFkbQIDAQAB
+-----END PUBLIC KEY-----
+EOD;
+
+// Charger la clé publique
+        $publicKey = openssl_pkey_get_public($publicKeyPem);
+
+        if (!$publicKey) {
+            die("❌ Erreur : Clé publique invalide");
+        }
+        
+
+// Chiffrement RSA avec padding PKCS1
+        if (openssl_public_encrypt($pin, $encrypted, $publicKey, OPENSSL_PKCS1_PADDING)) {
+            $encryptedBase64 = base64_encode($encrypted);
+            echo $encryptedBase64 . PHP_EOL;
+        } else {
+            echo "❌ Erreur lors du chiffrement.";
+        }
+
+    }
+
+}

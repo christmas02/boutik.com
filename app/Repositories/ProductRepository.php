@@ -206,7 +206,7 @@ class ProductRepository
     public function saveNewProduct($data)
     {
         try{
-            if($data['code_product']){
+            if(!empty($data['code_product'])) {
                 $product = Product::where('code_product', $data['code_product'])->first();
                 $product->nom = $data['name'];
                 $product->montant = $data['amount'];
@@ -258,7 +258,7 @@ class ProductRepository
 
 
         }catch(\Throwable $th){
-            Log::error($th->getMessage());
+            Log::error('ProductRepository - save products', $th->getMessage());
             DB::rollback();
             return response()->json([
                 'message' => $th->getMessage()

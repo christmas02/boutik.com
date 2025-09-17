@@ -59,7 +59,7 @@
                                         <td data-label="Product" class="mn-cart-pro-name">
                                             <a href="product-detail.html">
                                                 <img class="mn-cart-pro-img" src="{{ env('IMAGES_PATH') }}/{{ $item->picture }}" alt="">
-                                                {{ $item['name'] }}
+                                                {{ $item->name }}
                                             </a>
                                         </td>
                                         <td data-label="Price" class="mn-cart-pro-price">
