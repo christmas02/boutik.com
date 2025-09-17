@@ -2,7 +2,7 @@
 
 namespace App\Services;
 
-use App\Models\categorie;
+use App\Models\Categorie;
 use App\Models\Historicproduct;
 use Illuminate\Support\Facades\Log;
 
