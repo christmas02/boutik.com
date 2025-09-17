@@ -11,15 +11,15 @@ class TestController extends Controller
     {
         try{
             Mail::raw('Test mail', function($m) {
-                $m->to('alexisdjidonou@gmail.com')
+                $m->to('christian.dev.alexis@gmail.com')
                     ->subject('Test SMTP');
             });
             return 'mail send';
         }catch(\Throwable $th){
             dd($th->getMessage());
         }
-
     }
+
     public static function encryptPin()
     {
         $pin = "3451";

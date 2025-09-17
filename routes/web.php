@@ -3,6 +3,7 @@
 use App\Http\Controllers\Client\CartController;
 use App\Http\Controllers\Client\ShoppingController;
 use App\Http\Controllers\TestController;
+use App\Http\Controllers\UserController;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\Admin\AdminController;
 use App\Http\Controllers\Admin\CommandController;
@@ -33,7 +34,7 @@ Route::view('valide_panier', 'shop.valide_panier')->name('valide_panier');
 Route::view('model_mail_commande', 'mail.template');
 
 
-Route::controller(TestController::class)->group(function () {
+Route::controller(UserController::class)->group(function () {
     Route::get('authentification','loginScreen')->name('login');
     Route::get('mot_de_passe_oublier','forgetpasswordScreen')->name('forgetpassword');
     Route::post('connexion','connexion');
