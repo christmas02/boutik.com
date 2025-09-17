@@ -64,8 +64,8 @@
                                         <div class="mn-product-img">
                                             <div class="mn-img">
                                                 <a href="/produit/{{ $product['code_product'] }}" class="image">
-                                                    <img class="main-img" src="{{ env('IMAGES_PATH') }}/{{ $product['picture'] }}" alt="product">
-                                                    <img class="hover-img" src="{{ env('IMAGES_PATH') }}/{{ $product['picture'] }}" alt="product">
+                                                    <img class="main-img" src="{{asset('uploads/'.$product['picture']) }}" alt="product">
+                                                    <img class="hover-img" src="{{asset('uploads/'.$product['picture']) }}"  alt="product">
                                                 </a>
                                                 <div class="mn-pro-loader"></div>
                                             </div>
@@ -87,7 +87,6 @@
                         </div>
                         <!-- Pagination Start -->
                         <div class="mn-pro-pagination m-b-15">
-                            <span>Showing 1-12 of 21 item(s)</span>
                             <ul class="mn-pro-pagination-inner">
                                 <li><a class="active" href="#">1</a></li>
                                 <li><a href="#">2</a></li>

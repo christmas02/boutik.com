@@ -39,21 +39,21 @@
                                     <div class="single-product-scroll">
                                         <div class="single-product-cover">
                                             <div class="single-slide zoom-image-hover">
-                                                <img class="img-responsive" src="{{ env('IMAGES_PATH') }}/{{ $product['picture'] }}" alt="">
+                                                <img class="img-responsive" src="{{asset('uploads/'.$product['picture']) }}" alt="">
                                             </div>
                                             @foreach($product['galerie'] as $items)
                                             <div class="single-slide zoom-image-hover">
-                                                <img class="img-responsive" src="{{ env('IMAGES_PATH') }}/{{ $items->image }}" alt="">
+                                                <img class="img-responsive" src="{{asset('uploads/'.$items->image) }}" alt="">
                                             </div>
                                             @endforeach
                                         </div>
                                         <div class="single-nav-thumb">
                                             <div class="single-slide">
-                                                <img class="img-responsive" src="{{ env('IMAGES_PATH') }}/{{ $product['picture'] }}" alt="">
+                                                <img class="img-responsive"  src="{{asset('uploads/'.$product['picture'] }}" alt="">
                                             </div>
                                             @foreach($product['galerie'] as $items)
                                             <div class="single-slide">
-                                                <img class="img-responsive" src="{{ env('IMAGES_PATH') }}/{{ $items->image }}" alt="">
+                                                <img class="img-responsive" src="{{asset('uploads/'.$items->image) }}" alt="">
                                             </div>
                                             @endforeach
                                         </div>
