@@ -6,4 +6,4 @@
 <meta name="author" content="Maraviya Infotech">
 <meta name="csrf-token" content="{{ csrf_token() }}">
 
-<title>Mantu - eCommerce HTML Template.</title>
+<title>boutik17 - eCommerce.</title>

@@ -1,7 +1,7 @@
 <div class="mn-header">
     <div class="mn-header-items">
         <div class="left-header">
-            <a href="index.html" class="logo"><img src="assets/img/logo/logo.png" alt="logo"></a>
+            <a href="" class="logo"><img src="{{ asset('assets/img/logo/logo.png') }}" alt="logo"></a>
             <a href="javascript:void(0)" class="mn-toggle-menu">
                 <div class="header-icon">
                     <i class="ri-menu-3-fill"></i>
