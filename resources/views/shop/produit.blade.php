@@ -49,7 +49,7 @@
                                         </div>
                                         <div class="single-nav-thumb">
                                             <div class="single-slide">
-                                                <img class="img-responsive"  src="{{asset('uploads/'.$product['picture'] }}" alt="">
+                                                <img class="img-responsive"  src="{{asset('uploads/'.$product['picture']) }}" alt="">
                                             </div>
                                             @foreach($product['galerie'] as $items)
                                             <div class="single-slide">
