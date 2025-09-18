@@ -69,7 +69,7 @@
                         <table style="padding: 30px">
                             <tbody>
                             <tr class="logo-sec" style="display: flex; align-items: center; justify-content: space-between; width: 650px;">
-                                <td><h2>BOUTIKCOM</h2></td>
+                                <td><h2>BOUTIK17</h2></td>
                                 <td style="text-align: right; color:#999">
                                     <span>Commande n. : {{ $identification_boncommande }} <br> Passée le : {{ $data['date'] }}</span>
                                 </td>
@@ -129,9 +129,9 @@
                 <tr>
                     <td style="font-family:Arial,Helvetica,sans-serif;font-size:14px;line-height:22px;color:#000000">
                         <p style="margin:20px 0"><a style="color:#000000; font-weight: bold"> BOUTIKCOM</a></p>
-                        <p style="margin:20px 0">Nous sommes disponibles pour vous aider via notre Service clients. Vous pouvez nous&nbsp;contacter par e-mail à l'adresse <a style="color:#000000" href="mailto:info@notino.fr" target="_blank">
-                                info@notino.fr</a> ou par téléphone au 0033 (0)1 81 22 12 88 de lun-ven 9h-17h.</p>
-                        <p style="margin:20px 0"><span style="font-size:8pt"><strong><a style="color:#000000">NTN Beauté SAS</a></strong>, 10 rue du Colisée, 75008 Paris, France, N° de TVA intracommunautaire : FR48&nbsp;824560346</span></p></td>
+                        <p style="margin:20px 0">Nous sommes disponibles pour vous aider via notre Service clients. Vous pouvez nous&nbsp;contacter par e-mail à l'adresse <a style="color:#000000" href="mailto:contact@boutik17.com" target="_blank">
+                                contact@boutik17.com</a> ou par téléphone au 00225 05 65 12 10 84 de lun-ven 9h-17h.</p>
+                        <p style="margin:20px 0"><span style="font-size:8pt"><strong><a style="color:#000000">BOUTIK 17 SAS</a></strong>, Abidjan Cocody </span></p></td>
                 </tr>
                 </tbody>
             </table>
