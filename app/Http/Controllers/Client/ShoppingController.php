@@ -154,7 +154,7 @@ class ShoppingController extends Controller
             SaveNewCommandJob::dispatch($infoClient, $identification_commande, $dataPanier, $total);
 
             Cart::clear();
-            return view('shop.message')->with('success', 'Votre commande à bien été enregistrer !');
+            return view('shop.message')->with('success', 'Votre commande à bien été enregistré, vous recevez un mail de confirmation !');
 
         }catch(\Throwable $th){
             Log::error('methode saveCommand '.$th->getMessage());
