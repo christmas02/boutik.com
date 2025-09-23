@@ -2764,7 +2764,7 @@ header {
     display: flex;
   }
   .mn-header .mn-header-items .left-header .logo img {
-    width: 100px;
+    width: 140px;
   }
 }
 @media only screen and (max-width: 575px) {
