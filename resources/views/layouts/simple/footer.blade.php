@@ -5,8 +5,8 @@
                 <div class="row m-minus-991">
                     <div class="col-sm-12 col-lg-3 mn-footer-cat">
                         <div class="mn-footer-widget mn-footer-company">
-                            <img src="assets/img/logo/logo.png" class="mn-footer-logo" alt="footer logo">
-                            <img src="assets/img/logo/logo-dark.png" class="mn-footer-dark-logo" alt="footer logo">
+                            <img src="{{ asset('assets/img/logo/logo.png') }}" class="mn-footer-logo" alt="footer logo">
+                            <img src="{{ asset('assets/img/logo/logo-dark.png') }}" class="mn-footer-dark-logo" alt="footer logo">
                             <p class="mn-footer-detail">The Mantu is the biggest market of grocery products. Get
                                 your daily needs from our store.</p>
 
