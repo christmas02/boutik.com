@@ -5,7 +5,7 @@
 <head>
 
     <meta charset="utf-8" />
-    <title>Dashboard | Velzon - Admin & Dashboard Template</title>
+    <title>Boutik17 | </title>
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta content="P" name="description" />
     <meta content="Themesbrand" name="author" />
