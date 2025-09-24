@@ -5,7 +5,7 @@
             <div class="mn-cart-title">
                 <span class="cart_title">Mon panier</span>
                 <a href="javascript:void(0)" class="mn-cart-close">
-                    <i class="ri-close-line"></i>
+                    <i class="ri-close-line">0</i>
                 </a>
             </div>
             <ul class="mn-cart-pro-items">

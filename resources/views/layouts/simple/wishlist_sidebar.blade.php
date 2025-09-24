@@ -5,7 +5,7 @@
             <div class="mn-wishlist-title">
                 <span class="wishlist_title">Favories</span>
                 <a href="javascript:void(0)" class="mn-wishlist-close">
-                    <i class="ri-close-line"></i>
+                    <i class="ri-close-line">0</i>
                 </a>
             </div>
             <ul class="mn-wishlist-pro-items">
