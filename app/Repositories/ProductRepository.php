@@ -156,7 +156,7 @@ class ProductRepository
     }
 
     public function productBycategorie($idcategorie){
-        $products = Product::where('categorie',$idcategorie)->where('archive',null)->get();
+        $products = Product::where('categorie',$idcategorie)->where('archive',null)->orderBy('id', 'desc')->get();
         $i = 0;
         $product = [];
 
