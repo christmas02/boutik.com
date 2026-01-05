@@ -214,7 +214,6 @@ class ProductRepository
                 $product->nom = $data['name'];
                 $product->montant = $data['amount'];
                 $product->description = $data['description'];
-
                 $product->save();
 
             } else {
@@ -283,6 +282,5 @@ class ProductRepository
             Log::error($th->getMessage());
             return back()->with('error', 'Une erreur est survenus !');
         }
-
     }
 }
