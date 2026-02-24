@@ -4,6 +4,7 @@ namespace App\Http\Controllers\Client;
 
 use App\Http\Controllers\Controller;
 use App\Jobs\SaveNewCommandJob;
+use App\Models\Categorie;
 use App\Models\Product;
 use App\Repositories\CommandRepository;
 use App\Repositories\ProductRepository;
@@ -25,7 +26,13 @@ class ShoppingController extends Controller
 
     //
     public function home(){
-        return redirect('produits_de_categorie/3/Parfumerie');
+        $allProducts = $this->productRepository->productBycategorie(3);
+        $featuredProducts = array_slice((array) $allProducts, 0, 3);
+        $categories = Categorie::all();
+        return view('shop.home', [
+            'featuredProducts' => $featuredProducts,
+            'categories' => $categories,
+        ]);
     }
 
     public function index(){
@@ -47,10 +54,10 @@ class ShoppingController extends Controller
             $total = Cart::getTotal();
             $products = $this->productRepository->productBycategorie($idCategorie);
             $sousCategory = $this->productRepository->getSouscategorybyCategory($idCategorie);
-
             return view('shop.categorie', [
                 'products' => $products,
                 'categorie' => $nameCategorie,
+                'categorie_id' => $idCategorie,
                 'cartCount' => $cartCount,
                 'content' => $content,
                 'prixTotal' => $total,
@@ -70,11 +77,18 @@ class ShoppingController extends Controller
             $content = Cart::getContent();
             $total = Cart::getTotal();
             $products = $this->productRepository->productBysouscategorie($id);
-            $sousCategory = $this->productRepository->getSouscategorybyCategory($id);
+
+            // Récupérer la sous-catégorie pour obtenir son catégorie parent
+            $subCategory = \App\Models\Souscategorie::find($id);
+            $categoryId = $subCategory ? $subCategory->categorie_id : null;
+
+            // Récupérer toutes les sous-catégories de la catégorie parent
+            $sousCategory = $categoryId ? $this->productRepository->getSouscategorybyCategory($categoryId) : [];
 
             return view('shop.categorie', [
                 'products' => $products,
                 'categorie' => $name,
+                'categorie_id' => $categoryId,
                 'cartCount' => $cartCount,
                 'content' => $content,
                 'prixTotal' => $total,

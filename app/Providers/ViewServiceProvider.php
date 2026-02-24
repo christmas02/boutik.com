@@ -18,6 +18,10 @@ class ViewServiceProvider extends ServiceProvider
             'layouts.simple.header',
             'layouts.simple.footer',
             'layouts.simple.cart_sidebar',
+            // Tailwind layout
+            'layouts.tailwind.header',
+            'layouts.tailwind.footer',
+            'layouts.tailwind.cart_sidebar',
         ], MenuComposer::class);
     }
 
