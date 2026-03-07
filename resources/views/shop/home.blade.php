@@ -49,24 +49,46 @@
 
 {{-- ─── FEATURED PRODUCTS ─────────────────────────────────────── --}}
 @if(!empty($featuredProducts))
-<section class="section-container mb-14">
-    <div class="flex items-center justify-between mb-6">
+<section class="section-container mb-14"
+         x-data="{
+            current: 0,
+            perPage: 3,
+            total: {{ count($featuredProducts) }},
+            get maxPage() { return Math.max(0, Math.ceil(this.total / this.perPage) - 1) },
+            prev() { if (this.current > 0) this.current-- },
+            next() { if (this.current < this.maxPage) this.current++ }
+         }">
+    <div class="flex items-center justify-between mb-7">
         <div>
             <h2 class="text-2xl font-bold text-slate-900">Produits Vedettes</h2>
             <p class="text-sm text-slate-500 mt-1">Nos meilleures ventes du moment</p>
         </div>
-        <a href="/produits_de_categorie/3/Parfumerie"
-           class="hidden sm:flex items-center gap-1.5 bg-blue-600 hover:bg-blue-700 text-white text-sm font-semibold px-4 py-2 rounded-xl transition-colors">
-            Voir tout
-            <svg class="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"/>
-            </svg>
-        </a>
+        <div class="flex items-center gap-3">
+            <button @click="prev"
+                    :class="current === 0 ? 'opacity-30 cursor-not-allowed' : 'hover:bg-slate-100'"
+                    class="w-9 h-9 rounded-full border border-slate-300 flex items-center justify-center transition-colors">
+                <svg class="w-4 h-4 text-slate-700" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 19l-7-7 7-7"/>
+                </svg>
+            </button>
+            <button @click="next"
+                    :class="current === maxPage ? 'opacity-30 cursor-not-allowed' : 'hover:bg-slate-100'"
+                    class="w-9 h-9 rounded-full border border-slate-300 flex items-center justify-center transition-colors">
+                <svg class="w-4 h-4 text-slate-700" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"/>
+                </svg>
+            </button>
+        </div>
     </div>
 
     <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-5">
-        @foreach($featuredProducts as $product)
-        <a href="/produit/{{ $product['code_product'] }}" class="product-card">
+        @foreach($featuredProducts as $i => $product)
+        <a href="/produit/{{ $product['code_product'] }}"
+           x-show="Math.floor({{ $i }} / perPage) === current"
+           x-transition:enter="transition ease-out duration-300"
+           x-transition:enter-start="opacity-0 translate-y-2"
+           x-transition:enter-end="opacity-100 translate-y-0"
+           class="product-card">
             <div class="bg-slate-50 aspect-square flex items-center justify-center p-6 group-hover:bg-slate-100 transition-colors">
                 <img src="{{ asset('uploads/'.$product['picture']) }}"
                      alt="{{ $product['name'] }}"
@@ -81,48 +103,93 @@
         @endforeach
     </div>
 
-    <div class="sm:hidden text-center mt-5">
-        <a href="/produits_de_categorie/3/Parfumerie" class="btn-outline-blue text-sm px-5 py-2.5">
+    <div class="mt-8 pt-6 border-t border-slate-200 flex flex-col items-center gap-4">
+        <a href="/produits_de_categorie/3/Parfumerie" class="btn-primary text-sm px-6 py-2.5 inline-flex items-center justify-center gap-2">
             Voir tous les produits
+            <svg class="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"/>
+            </svg>
         </a>
+        <button @click="next"
+                :class="current === maxPage ? 'opacity-30 cursor-not-allowed' : ''"
+                class="btn-outline-blue text-sm px-5 py-2.5 sm:hidden transition-opacity">
+            Voir les produits suivants
+        </button>
     </div>
 </section>
 @endif
 
 {{-- ─── SHOP BY CATEGORY ──────────────────────────────────────── --}}
-<section id="categories" class="section-container mb-14">
-    <div class="flex items-center justify-between mb-6">
-        <div>
-            <h2 class="text-2xl font-bold text-slate-900">Nos Catégories</h2>
-            <p class="text-sm text-slate-500 mt-1">Explorez par univers</p>
+<section id="categories" class="section-container mb-14"
+         x-data="{
+            current: 0,
+            perPage: 3,
+            total: {{ $categoriesWithProducts->count() }},
+            get maxPage() { return Math.max(0, Math.ceil(this.total / this.perPage) - 1) },
+            prev() { if (this.current > 0) this.current-- },
+            next() { if (this.current < this.maxPage) this.current++ }
+         }">
+
+    {{-- En-tête --}}
+    <div class="flex items-center justify-between mb-7">
+        <h2 class="text-2xl font-bold text-slate-900">Nos Catégories</h2>
+        <div class="flex items-center gap-2">
+            <button @click="prev"
+                    :class="current === 0 ? 'opacity-30 cursor-not-allowed' : 'hover:bg-slate-100'"
+                    class="w-9 h-9 rounded-full border border-slate-300 flex items-center justify-center transition-colors">
+                <svg class="w-4 h-4 text-slate-700" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 19l-7-7 7-7"/>
+                </svg>
+            </button>
+            <button @click="next"
+                    :class="current === maxPage ? 'opacity-30 cursor-not-allowed' : 'hover:bg-slate-100'"
+                    class="w-9 h-9 rounded-full border border-slate-300 flex items-center justify-center transition-colors">
+                <svg class="w-4 h-4 text-slate-700" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"/>
+                </svg>
+            </button>
         </div>
     </div>
 
-    @php
-        $categoryColors = ['bg-blue-50', 'bg-purple-50', 'bg-rose-50', 'bg-amber-50', 'bg-teal-50', 'bg-emerald-50'];
-        $categoryAccents = ['text-blue-600', 'text-purple-600', 'text-rose-600', 'text-amber-600', 'text-teal-600', 'text-emerald-600'];
-        $categoryHovers = ['hover:bg-blue-100', 'hover:bg-purple-100', 'hover:bg-rose-100', 'hover:bg-amber-100', 'hover:bg-teal-100', 'hover:bg-emerald-100'];
-    @endphp
-
+    {{-- Grille des cartes catégorie --}}
     <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-5">
-        @foreach($categories as $i => $categorie)
-        @php
-            $colorBg = $categoryColors[$i % count($categoryColors)];
-            $colorText = $categoryAccents[$i % count($categoryAccents)];
-            $colorHover = $categoryHovers[$i % count($categoryHovers)];
-        @endphp
-        <a href="/produits_de_categorie/{{ $categorie->id }}/{{ $categorie->name }}"
-           class="category-card {{ $colorBg }} {{ $colorHover }} block">
-            <h3 class="text-xl font-bold text-slate-900 mb-2">{{ $categorie->name }}</h3>
-            <p class="text-sm text-slate-500 mb-4 leading-relaxed">
-                Découvrez toute notre collection {{ strtolower($categorie->name) }}.
-            </p>
-            <span class="inline-flex items-center gap-1 text-sm font-semibold {{ $colorText }}">
-                Voir la catégorie
-                <svg class="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"/>
-                </svg>
-            </span>
+        @foreach($categoriesWithProducts as $i => $cat)
+        <a href="/produits_de_categorie/{{ $cat['id'] }}/{{ $cat['name'] }}"
+           x-show="Math.floor({{ $i }} / perPage) === current"
+           x-transition:enter="transition ease-out duration-300"
+           x-transition:enter-start="opacity-0 translate-y-2"
+           x-transition:enter-end="opacity-100 translate-y-0"
+           class="bg-slate-100 rounded-2xl overflow-hidden flex flex-col hover:shadow-md transition-shadow duration-200 min-h-[320px]">
+
+            {{-- Texte en haut --}}
+            <div class="p-6 pb-3">
+                <h3 class="text-xl font-bold text-slate-900 mb-2">{{ $cat['name'] }}</h3>
+                <p class="text-sm text-slate-500 leading-relaxed mb-4">
+                    Découvrez toute notre sélection {{ strtolower($cat['name']) }}, des produits choisis avec soin pour vous.
+                </p>
+                <span class="inline-flex items-center gap-1 text-sm font-semibold text-blue-600">
+                    Voir la catégorie
+                    <svg class="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"/>
+                    </svg>
+                </span>
+            </div>
+
+            {{-- Image produit en bas --}}
+            <div class="flex-1 flex items-end justify-center px-6 pt-2 overflow-hidden">
+                @if($cat['picture'])
+                <img src="{{ asset('uploads/'.$cat['picture']) }}"
+                     alt="{{ $cat['name'] }}"
+                     class="w-full max-h-48 object-contain object-bottom drop-shadow-lg"
+                     loading="lazy">
+                @else
+                <div class="w-32 h-32 bg-slate-200 rounded-full mb-4 flex items-center justify-center">
+                    <svg class="w-10 h-10 text-slate-400" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M20 7l-8-4-8 4m16 0l-8 4m8-4v10l-8 4m0-10L4 7m8 4v10"/>
+                    </svg>
+                </div>
+                @endif
+            </div>
         </a>
         @endforeach
     </div>

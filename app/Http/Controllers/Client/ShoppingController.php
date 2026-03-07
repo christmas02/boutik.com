@@ -27,11 +27,26 @@ class ShoppingController extends Controller
     //
     public function home(){
         $allProducts = $this->productRepository->productBycategorie(3);
-        $featuredProducts = array_slice((array) $allProducts, 0, 3);
-        $categories = Categorie::all();
+        $featuredProducts = array_slice((array) $allProducts, 0, 21);
+
+        // Catégories avec image du premier produit disponible
+        $rawCategories = \App\Models\Categorie::where('statut', 1)->get();
+        $categoriesWithProducts = $rawCategories->map(function ($cat) {
+            $firstProduct = \App\Models\Product::where('categorie', $cat->id)
+                ->where('archive', null)
+                ->where('stock', '!=', 0)
+                ->orderBy('id', 'desc')
+                ->first();
+            return [
+                'id'      => $cat->id,
+                'name'    => $cat->name,
+                'picture' => $firstProduct ? $firstProduct->image : null,
+            ];
+        });
+
         return view('shop.home', [
-            'featuredProducts' => $featuredProducts,
-            'categories' => $categories,
+            'featuredProducts'       => $featuredProducts,
+            'categoriesWithProducts' => $categoriesWithProducts,
         ]);
     }
 
