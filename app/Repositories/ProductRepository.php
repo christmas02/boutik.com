@@ -160,7 +160,6 @@ class ProductRepository
         $products = Product::where('categorie',$idcategorie)
             ->where('archive',null)
             ->where('stock', '!=', 0)
-            ->where('featured', '!=', 0)
             ->orderBy('id', 'desc')->get();
         $i = 0;
         $product = [];
@@ -176,6 +175,7 @@ class ProductRepository
             $product[$i]["category"] = $categoryProduct->name;
             $product[$i]["picture"] = $value->image;
             $product[$i]["slug"] = $value->slug;
+            $product[$i]["featured"] = $value->featured;
             $product[$i]["date_publication"] = $value->created_at;
             $product[$i]["code_product"] = $value->code_product;
             $i++;

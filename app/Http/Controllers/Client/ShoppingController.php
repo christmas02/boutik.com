@@ -27,7 +27,11 @@ class ShoppingController extends Controller
     //
     public function home(){
         $allProducts = $this->productRepository->productBycategorie(3);
-        $featuredProducts = array_slice((array) $allProducts, 0, 21);
+        $productsfeatured = array_filter($allProducts, function ($product) {
+            return isset($product['featured']) && $product['featured'] == 1;
+        });
+
+        $featuredProducts = array_slice((array) $productsfeatured, 0, 21);
 
         // Catégories avec image du premier produit disponible
         $rawCategories = \App\Models\Categorie::where('statut', 1)->get();
