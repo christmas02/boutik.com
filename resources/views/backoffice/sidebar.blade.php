@@ -1,119 +1,99 @@
-<!-- ========== App Menu ========== -->
-<div class="app-menu navbar-menu">
+<nav id="boutik-sidebar">
+
     <!-- LOGO -->
-    <div class="navbar-brand-box">
-        <!-- Dark Logo-->
-        <a href="index.html" class="logo logo-dark">
-                    <span class="logo-sm">
-                        <img src="{{ asset('assets/img/logo/logo-dark.png') }}" alt="" height="22">
-                    </span>
-            <span class="logo-lg">
-                        <img src="{{ asset('assets/img/logo/logo-dark.png') }}" alt="" height="17">
-                    </span>
+    <div class="sidebar-header">
+        <a href="/espace/administrateur" class="sidebar-brand">
+            Boutik<em>17</em>
         </a>
-        <!-- Light Logo-->
-        <a href="index.html" class="logo logo-light">
-                    <span class="logo-sm">
-                        <img src="{{ asset('assets/img/logo/logo-dark.png') }}" alt="" height="17ss">
-                    </span>
-            <span class="logo-lg">
-                        <img src="{{ asset('assets/img/logo/logo-dark.png') }}" alt="" height="50">
-                    </span>
-        </a>
-        <button type="button" class="btn btn-sm p-0 fs-20 header-item float-end btn-vertical-sm-hover" id="vertical-hover">
-            <i class="ri-record-circle-line"></i>
-        </button>
     </div>
 
-    <div id="scrollbar">
-        <div class="container-fluid">
+    <!-- NAVIGATION -->
+    <div class="sidebar-body">
 
-            <div id="two-column-menu">
+        <div class="sidebar-section-label">Principal</div>
+
+        <a href="/espace/administrateur"
+           class="sidebar-nav-item {{ request()->is('espace/administrateur') ? 'active' : '' }}">
+            <i class="ri-dashboard-line"></i>
+            <span>Tableau de bord</span>
+        </a>
+
+        <div class="sidebar-section-label">Commandes</div>
+
+        <a href="/list/command"
+           class="sidebar-nav-item {{ request()->is('list/command') ? 'active' : '' }}">
+            <i class="ri-shopping-cart-2-line"></i>
+            <span>Liste des commandes</span>
+        </a>
+
+        <a href="/list/client"
+           class="sidebar-nav-item {{ request()->is('list/client') ? 'active' : '' }}">
+            <i class="ri-group-line"></i>
+            <span>Liste des clients</span>
+        </a>
+
+        <div class="sidebar-section-label">Gestion du stock</div>
+
+        <a href="/create/product"
+           class="sidebar-nav-item {{ request()->is('create/product') ? 'active' : '' }}">
+            <i class="ri-add-box-line"></i>
+            <span>Ajouter un produit</span>
+        </a>
+
+        <a href="/list/product"
+           class="sidebar-nav-item {{ request()->is('list/product') ? 'active' : '' }}">
+            <i class="ri-archive-drawer-line"></i>
+            <span>Produits</span>
+        </a>
+
+        <a href="/list/categorie"
+           class="sidebar-nav-item {{ request()->is('list/categorie') ? 'active' : '' }}">
+            <i class="ri-list-check"></i>
+            <span>Catégories</span>
+        </a>
+
+        <a href="/list/sous/categorie"
+           class="sidebar-nav-item {{ request()->is('list/sous/categorie') ? 'active' : '' }}">
+            <i class="ri-list-check-2"></i>
+            <span>Sous catégories</span>
+        </a>
+
+        <div class="sidebar-section-label">Administrateurs</div>
+
+        <a href="/nouveau/administrateur"
+           class="sidebar-nav-item {{ request()->is('nouveau/administrateur') ? 'active' : '' }}">
+            <i class="ri-user-add-line"></i>
+            <span>Ajouter admin</span>
+        </a>
+
+        <a href="/liste/administrateur"
+           class="sidebar-nav-item {{ request()->is('liste/administrateur') ? 'active' : '' }}">
+            <i class="ri-shield-user-line"></i>
+            <span>Administrateurs</span>
+        </a>
+
+    </div>
+
+    <!-- FOOTER -->
+    <div class="sidebar-footer">
+        <a href="/logout" class="sidebar-nav-item">
+            <i class="ri-logout-box-r-line"></i>
+            <span>Déconnexion</span>
+        </a>
+
+        @auth
+        <div class="sidebar-user-box">
+            @if(Auth::user()->picture != NULL)
+                <img src="{{ env('IMAGES_PATH') }}/{{ Auth::user()->picture }}" alt="avatar">
+            @else
+                <img src="{{ asset('/admin/assets/images/users/avatar-1.jpg') }}" alt="avatar">
+            @endif
+            <div>
+                <div class="sidebar-user-name">{{ auth()->user()->name }}</div>
+                <div class="sidebar-user-role">Administrateur</div>
             </div>
-
-            <ul class="navbar-nav" id="navbar-nav">
-                <li class="menu-title"><span data-key="t-menu">Menu</span></li>
-
-                <li class="nav-item">
-                    <a class="nav-link menu-link" role="button" aria-expanded="false" aria-controls="sidebarUI">
-                        <i class="ri-pencil-ruler-2-line"></i> <span data-key=""> <b>Tableau de brod</b> </span>
-                    </a>
-                    <div class="col-lg-12">
-                        <ul class="nav nav-sm flex-column">
-                            <li class="nav-item">
-                                <a href="/espace/administrateur" class="nav-link" data-key="t-alerts">Tableau de bord</a>
-                            </li>
-                        </ul>
-                    </div>
-
-                </li>
-
-                <li class="nav-item">
-                    <a class="nav-link menu-link" role="button" aria-expanded="false" aria-controls="sidebarUI">
-                        <i class="ri-pencil-ruler-2-line"></i> <span data-key=""> <b>Gestion commandes</b> </span>
-                    </a>
-                    <div class="col-lg-12">
-                        <ul class="nav nav-sm flex-column">
-                            <li class="nav-item">
-                                <a href="/list/command" class="nav-link" data-key="t-badges">Liste des commande</a>
-                            </li>
-                            <li class="nav-item">
-                                <a href="/list/client" class="nav-link" data-key="t-badges">Liste des clients</a>
-                            </li>
-                        </ul>
-                    </div>
-
-                </li>
-
-                <li class="nav-item">
-                    <a class="nav-link menu-link" role="button" aria-expanded="false" aria-controls="sidebarUI">
-                        <i class="ri-pencil-ruler-2-line"></i> <span data-key=""> <b>Gestion du stock</b> </span>
-                    </a>
-
-                    <div class="col-lg-12">
-                        <ul class="nav nav-sm flex-column">
-                            <li class="nav-item">
-                                <a href="/create/product" class="nav-link" data-key="t-alerts">Ajouter un produit</a>
-                            </li>
-                            <li class="nav-item">
-                                <a href="/list/product" class="nav-link" data-key="t-badges">Liste des produits</a>
-                            </li>
-                            <li class="nav-item">
-                                <a href="/list/categorie" class="nav-link" data-key="t-badges">Liste des catégorie</a>
-                            </li>
-                            <li class="nav-item">
-                                <a href="/list/sous/categorie" class="nav-link" data-key="t-badges">Liste des sous categorie</a>
-                            </li>
-
-                        </ul>
-                    </div>
-
-                </li>
-
-                <li class="nav-item">
-                    <a class="nav-link menu-link" role="button" aria-expanded="false" aria-controls="sidebarUI">
-                        <i class="ri-pencil-ruler-2-line"></i> <span data-key=""> <b>Administrateur</b> </span>
-                    </a>
-
-                    <div class="col-lg-12">
-                        <ul class="nav nav-sm flex-column">
-                            <li class="nav-item">
-                                <a href="/nouveau/administrateur" class="nav-link" data-key="t-alerts">Ajouter Administrateur</a>
-                            </li>
-                            <li class="nav-item">
-                                <a href="/liste/administrateur" class="nav-link" data-key="t-alerts">Liste Administrateurs</a>
-                            </li>
-
-                        </ul>
-                    </div>
-
-                </li>
-
-            </ul>
         </div>
-        <!-- Sidebar -->
+        @endauth
     </div>
 
-    <div class="sidebar-background"></div>
-</div>
-<!-- Left Sidebar End -->
+</nav>

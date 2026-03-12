@@ -1,150 +1,61 @@
-<header id="page-topbar">
-    <div class="layout-width">
-        <div class="navbar-header">
-            <div class="d-flex">
-                <!-- LOGO -->
-                <div class="navbar-brand-box horizontal-logo">
-                    <a href="i" class="logo logo-dark">
-                        <span class="logo-sm">
-                            <img src="{{ asset('assets/img/logo/logo.png') }}" alt="" height="22">
-                        </span>
-                        <span class="logo-lg">
-                            <img src="{{ asset('assets/img/logo/logo.png') }}" alt="" height="17">
-                        </span>
-                    </a>
+<header id="boutik-topbar">
 
-                    <a href="index.html" class="logo logo-light">
-                        <span class="logo-sm">
-                            <img src="{{ asset('assets/img/logo/logo.png') }}" alt="" height="22">
-                        </span>
-                        <span class="logo-lg">
-                            <img src="{{ asset('assets/img/logo/logo.png') }}" alt="" height="17">
-                        </span>
-                    </a>
+    <div class="topbar-left">
+        <h6 class="mb-0 fw-semibold" style="font-size:15px; color:#1e293b;">
+            @yield('page-title', 'Tableau de bord')
+        </h6>
+    </div>
+
+    <div class="topbar-right">
+        <!-- Recherche -->
+        <div class="topbar-search d-none d-md-flex">
+            <i class="ri-search-line"></i>
+            <input type="text" placeholder="Rechercher...">
+        </div>
+
+        <!-- Notifications (placeholder) -->
+        <div class="position-relative" style="cursor:pointer; padding:6px;">
+            <i class="ri-notification-3-line" style="font-size:20px; color:#64748b;"></i>
+        </div>
+
+        <!-- User dropdown -->
+        <div class="dropdown">
+            <button class="topbar-user-btn dropdown-toggle" id="userDropdown"
+                    data-bs-toggle="dropdown" aria-expanded="false"
+                    style="border:none; background:none; cursor:pointer; display:flex; align-items:center; gap:8px; padding:4px 6px; border-radius:8px;">
+                @if(Auth::user()->picture != NULL)
+                    <img src="{{ env('IMAGES_PATH') }}/{{ Auth::user()->picture }}" alt="avatar"
+                         style="width:34px;height:34px;border-radius:50%;object-fit:cover;border:2px solid #e2e8f0;">
+                @else
+                    <img src="{{ asset('/admin/assets/images/users/avatar-1.jpg') }}" alt="avatar"
+                         style="width:34px;height:34px;border-radius:50%;object-fit:cover;border:2px solid #e2e8f0;">
+                @endif
+                <div class="text-start d-none d-xl-block">
+                    <div style="font-size:13px;font-weight:600;color:#1e293b;line-height:1.3;">{{ auth()->user()->name }}</div>
+                    <div style="font-size:11px;color:#94a3b8;">Administrateur</div>
                 </div>
+            </button>
 
-                <button type="button" class="btn btn-sm px-3 fs-16 header-item vertical-menu-btn topnav-hamburger" id="topnav-hamburger-icon">
-                    <span class="hamburger-icon">
-                        <span></span>
-                        <span></span>
-                        <span></span>
-                    </span>
-                </button>
-
-                <!-- App Search-->
-                <form class="app-search d-none d-md-block">
-                    <div class="position-relative">
-                        <input type="text" class="form-control" placeholder="Search..." autocomplete="off" id="search-options" value="">
-                        <span class="mdi mdi-magnify search-widget-icon"></span>
-                        <span class="mdi mdi-close-circle search-widget-icon search-widget-icon-close d-none" id="search-close-options"></span>
-                    </div>
-                    <div class="dropdown-menu dropdown-menu-lg" id="search-dropdown">
-                        <div data-simplebar style="max-height: 320px;">
-                            <!-- item-->
-                            <div class="dropdown-header">
-                                <h6 class="text-overflow text-muted mb-0 text-uppercase">Recent Searches</h6>
-                            </div>
-
-                            <div class="dropdown-item bg-transparent text-wrap">
-                                <a href="index.html" class="btn btn-soft-secondary btn-sm rounded-pill">how to setup <i class="mdi mdi-magnify ms-1"></i></a>
-                                <a href="index.html" class="btn btn-soft-secondary btn-sm rounded-pill">buttons <i class="mdi mdi-magnify ms-1"></i></a>
-                            </div>
-                            <!-- item-->
-                            <div class="dropdown-header mt-2">
-                                <h6 class="text-overflow text-muted mb-1 text-uppercase">Pages</h6>
-                            </div>
-
-                            <!-- item-->
-                            <a href="javascript:void(0);" class="dropdown-item notify-item">
-                                <i class="ri-bubble-chart-line align-middle fs-18 text-muted me-2"></i>
-                                <span>Analytics Dashboard</span>
-                            </a>
-
-                            <!-- item-->
-                            <a href="javascript:void(0);" class="dropdown-item notify-item">
-                                <i class="ri-lifebuoy-line align-middle fs-18 text-muted me-2"></i>
-                                <span>Help Center</span>
-                            </a>
-
-                            <!-- item-->
-                            <a href="javascript:void(0);" class="dropdown-item notify-item">
-                                <i class="ri-user-settings-line align-middle fs-18 text-muted me-2"></i>
-                                <span>My account settings</span>
-                            </a>
-
-                            <!-- item-->
-                            <div class="dropdown-header mt-2">
-                                <h6 class="text-overflow text-muted mb-2 text-uppercase">Members</h6>
-                            </div>
-
-                            <div class="notification-list">
-                                <!-- item -->
-                                <a href="javascript:void(0);" class="dropdown-item notify-item py-2">
-                                    <div class="d-flex">
-                                        <img src="{{asset('/admin/assets/images/users/avatar-2.jpg')}}" class="me-3 rounded-circle avatar-xs" alt="user-pic">
-                                        <div class="flex-grow-1">
-                                            <h6 class="m-0">Angela Bernier</h6>
-                                            <span class="fs-11 mb-0 text-muted">Manager</span>
-                                        </div>
-                                    </div>
-                                </a>
-                                <!-- item -->
-                                <a href="javascript:void(0);" class="dropdown-item notify-item py-2">
-                                    <div class="d-flex">
-                                        <img src="{{asset('/admin/assets/images/users/avatar-3.jpg')}}" class="me-3 rounded-circle avatar-xs" alt="user-pic">
-                                        <div class="flex-grow-1">
-                                            <h6 class="m-0">David Grasso</h6>
-                                            <span class="fs-11 mb-0 text-muted">Web Designer</span>
-                                        </div>
-                                    </div>
-                                </a>
-                                <!-- item -->
-                                <a href="javascript:void(0);" class="dropdown-item notify-item py-2">
-                                    <div class="d-flex">
-                                        <img src="{{asset('/admin/assets/images/users/avatar-5.jpg')}}" class="me-3 rounded-circle avatar-xs" alt="user-pic">
-                                        <div class="flex-grow-1">
-                                            <h6 class="m-0">Mike Bunch</h6>
-                                            <span class="fs-11 mb-0 text-muted">React Developer</span>
-                                        </div>
-                                    </div>
-                                </a>
-                            </div>
-                        </div>
-
-                        <div class="text-center pt-3 pb-1">
-                            <a href="pages-search-results.html" class="btn btn-primary btn-sm">View All Results <i class="ri-arrow-right-line ms-1"></i></a>
-                        </div>
-                    </div>
-                </form>
-            </div>
-
-            <div class="d-flex align-items-center">
-                <div class="dropdown ms-sm-3 header-item topbar-user">
-                    <button type="button" class="btn" id="page-header-user-dropdown" data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                        <span class="d-flex align-items-center">
-                            @if(Auth::user()->picture != NULL)
-                            <img class="rounded-circle header-profile-user" src="{{ env('IMAGES_PATH') }}/{{ Auth::user()->picture }}" alt="User Avatar">
-                            <!-- <img class="rounded-circle header-profile-user" src="{{ asset('storage/' . Auth::user()->picture) }}" alt="User Avatar"> -->
-
-                            @else
-                            <img class="rounded-circle header-profile-user" src="{{asset('/admin/assets/images/users/avatar-1.jpg')}}" alt="User Avatar">
-                            @endif
-                            <span class="text-start ms-xl-2">
-                                <span class="d-none d-xl-inline-block ms-1 fw-medium user-name-text">{{ auth()->user()->name }}</span>
-                                <span class="d-none d-xl-block ms-1 fs-12 user-name-sub-text">Founder</span>
-                            </span>
-                        </span>
+            <ul class="dropdown-menu dropdown-menu-end" aria-labelledby="userDropdown">
+                <li><h6 class="dropdown-header">Bienvenue {{ auth()->user()->name }} !</h6></li>
+                <li>
+                    <button class="dropdown-item" data-bs-toggle="modal" data-bs-target="#exampleModalgrid">
+                        <i class="ri-user-line me-2 text-muted"></i> Mon profil
                     </button>
-                    <div class="dropdown-menu dropdown-menu-end">
-                        <!-- item-->
-                        <h6 class="dropdown-header">Bienvenue {{ auth()->user()->name }}!</h6>
-                        <button class="dropdown-item" data-bs-toggle="modal" data-bs-target="#exampleModalgrid"><i class="mdi mdi-account-circle text-muted fs-16 align-middle me-1"></i> <span class="align-middle">Profile</span></button>
-                        <button class="dropdown-item" data-bs-toggle="modal" data-bs-target="#passwordModalgrid"><i class="mdi mdi-lock text-muted fs-16 align-middle me-1"></i> <span class="align-middle">Mot de passe</span></button>
-                        <a class="dropdown-item" href="#"><i class="mdi mdi-calendar-check-outline text-muted fs-16 align-middle me-1"></i> <span class="align-middle">Historique</span></a>
-                        <button class="dropdown-item"><i class="mdi mdi-logout text-muted fs-16 align-middle me-1"></i> <span class="align-middle" data-key="t-logout">Se déconnecter</span></button>
-                    </div>
-                </div>
-            </div>
+                </li>
+                <li>
+                    <button class="dropdown-item" data-bs-toggle="modal" data-bs-target="#passwordModalgrid">
+                        <i class="ri-lock-line me-2 text-muted"></i> Mot de passe
+                    </button>
+                </li>
+                <li><hr class="dropdown-divider"></li>
+                <li>
+                    <a class="dropdown-item text-danger" href="/logout">
+                        <i class="ri-logout-box-r-line me-2"></i> Se déconnecter
+                    </a>
+                </li>
+            </ul>
         </div>
     </div>
+
 </header>

@@ -139,6 +139,7 @@ class ProductRepository
                 "picture" => $getProduct->image,
                 "slug" => $getProduct->slug,
                 "archive" => $getProduct->archive,
+                "featured" => $getProduct->featured,
                 "date_publication" => $getProduct->created_at,
                 "code_product" => $getProduct->code_product,
                 "galerie" => $galerie,
@@ -159,6 +160,7 @@ class ProductRepository
         $products = Product::where('categorie',$idcategorie)
             ->where('archive',null)
             ->where('stock', '!=', 0)
+            ->where('featured', '!=', 0)
             ->orderBy('id', 'desc')->get();
         $i = 0;
         $product = [];
@@ -233,6 +235,7 @@ class ProductRepository
                 $product->stock = $data['quantity'];
                 $product->code_product = $codeProduct;
                 $product->nbrvente = 0;
+                $product->featured = 0;
                 $product->slug = $codeProduct.'_'.$data['slug'];
 
                 //dd($product);

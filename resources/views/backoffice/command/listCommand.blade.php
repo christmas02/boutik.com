@@ -1,111 +1,91 @@
 @extends('backoffice.layout')
 
+@section('page-title', 'Commandes')
+
 @section('content')
-<!-- Vertical Overlay-->
-<div class="vertical-overlay"></div>
-
-<!-- ============================================================== -->
-<!-- Start right Content here -->
-<!-- ============================================================== -->
 <div class="main-content">
-
     <div class="page-content">
         <div class="container-fluid">
 
-            <!-- start page title -->
-            <div class="row">
-                <div class="col-12">
-                    <div class="page-title-box d-sm-flex align-items-center justify-content-between">
-                        <h4 class="mb-sm-0">Liste des commandes</h4>
+            <div class="d-flex align-items-center justify-content-between mb-4">
+                <div>
+                    <h4 class="mb-1" style="font-size:20px;font-weight:700;color:#1e293b;">Liste des commandes</h4>
+                    <p class="text-muted mb-0" style="font-size:13px;">Suivi et gestion des commandes clients</p>
+                </div>
+            </div>
+
+            @include('backoffice.status')
+
+            <div class="card">
+                <div class="card-body">
+                    <div class="table-responsive">
+                        <table id="buttons-datatables" class="display table table-bordered" style="width:100%">
+                            <thead>
+                                <tr>
+                                    <th>#</th>
+                                    <th>Référence</th>
+                                    <th>Client</th>
+                                    <th>Email</th>
+                                    <th>Téléphone</th>
+                                    <th>Date</th>
+                                    <th>Statut</th>
+                                    <th>Type</th>
+                                    <th>Action</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                @foreach($commands as $command)
+                                <tr>
+                                    <td></td>
+                                    <td>
+                                        <code style="font-size:12px;">{{ $command->identifiant_commande }}</code>
+                                    </td>
+                                    <td style="font-weight:500;">
+                                        {{ $command->username }} {{ $command->firstname }}
+                                    </td>
+                                    <td class="text-muted">{{ $command->email }}</td>
+                                    <td class="text-muted">{{ $command->phone }}</td>
+                                    <td class="text-muted" style="font-size:12px;">{{ $command->created_at }}</td>
+                                    <td>
+                                        @if($command->statut == 2)
+                                            <span class="btn btn-soft-success btn-sm">Traitement en cours</span>
+                                        @elseif($command->statut == 11)
+                                            <span class="btn btn-soft-danger btn-sm">Annulée</span>
+                                        @elseif($command->statut == 1)
+                                            <span class="btn btn-soft-warning btn-sm">Validée</span>
+                                        @elseif($command->statut == 22)
+                                            <span class="btn btn-soft-success btn-sm">Exécutée</span>
+                                        @endif
+                                    </td>
+                                    <td>
+                                        <span class="badge" style="background:rgba(59,130,246,.1);color:#3b82f6;font-size:11px;">
+                                            {{ $command->type }}
+                                        </span>
+                                    </td>
+                                    <td>
+                                        <a class="btn btn-success btn-sm"
+                                           href="/detail/commande/{{ $command->identifiant_commande }}">
+                                            <i class="ri-eye-line me-1"></i> Voir
+                                        </a>
+                                    </td>
+                                </tr>
+                                @endforeach
+                            </tbody>
+                        </table>
                     </div>
                 </div>
             </div>
-            <!-- end page title -->
-
-            <div class="row">
-                <div class="col-lg-12">
-                    <div class="card">
-                        <div class="card-header">
-                            <h5 class="card-title mb-0"> </h5>
-                        </div>
-                        <div class="card-body">
-                            <div class="table-responsive">
-                                <table id="buttons-datatables" class="display table table-bordered" style="width:100%">
-                                    <thead>
-                                    <tr>
-                                        <th>#</th>
-                                        <th>ID</th>
-                                        <th>CLIENTS</th>
-                                        <th>E-MAIL</th>
-                                        <th>TÉLÉPHONE</th>
-                                        <th>DATE DE COMMANDE</th>
-                                        <th>STATUS COMMANDE</th>
-                                        <th>TYPE COMMANDE</th>
-                                        <th>ACTION</th>
-                                    </tr>
-                                    </thead>
-                                    <tbody>
-
-                                    @foreach($commands as $command)
-                                    <tr>
-                                        <td></td>
-                                        <td> {{ $command->identifiant_commande }} </td>
-                                        <td>{{ $command->username }} {{ $command->firstname }} </td>
-                                        <td> {{ $command->email }} </td>
-                                        <td> {{ $command->phone }} </td>
-                                        <td> {{ $command->created_at }}  </td>
-                                        <td>
-                                            @if($command->statut == 2)
-                                            <p class="btn btn-sm btn-soft-success">TRAITEMENT EN COURS</p>
-                                            @elseif($command->statut == 11)
-                                            <p class="btn btn-sm btn-soft-danger">COMMANDE ANNULER</p>
-                                            @elseif($command->statut == 1)
-                                            <p class="btn btn-sm btn-soft-warning">COMMANDE VALIDER</p>
-                                            @elseif($command->statut == 22)
-                                            <p class="btn btn-sm btn-soft-warning">COMMANDE EXECUTER</p>
-                                            @endif
-                                        </td>
-                                        <td> {{ $command->type }}  </td>
-                                        <td>
-                                            <div class="d-flex gap-2">
-                                                <a class="btn btn-sm btn-success edit-item-btn" href="/detail/commande/{{ $command->identifiant_commande }}" ><i class="ri-eye-fill align-bottom me-2 "></i>
-                                                    Voir</a>
-                                            </div>
-                                        </td>
-
-                                    </tr>
-                                    @endforeach
-                                    </tbody>
-
-                                </table>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div><!--end row-->
-
 
         </div>
-        <!-- container-fluid -->
     </div>
-    <!-- End Page-content -->
 
     <footer class="footer">
         <div class="container-fluid">
             <div class="row">
-                <div class="col-sm-6">
-                    <script>document.write(new Date().getFullYear())</script> © Velzon.
-                </div>
-                <div class="col-sm-6">
-                    <div class="text-sm-end d-none d-sm-block">
-                        Design & Develop by etrapci-sarl
-                    </div>
-                </div>
+                <div class="col-sm-6">&copy; {{ date('Y') }} Boutik17</div>
+                <div class="col-sm-6 text-sm-end d-none d-sm-block">Espace Administration</div>
             </div>
         </div>
     </footer>
 </div>
-<!-- end main content-->
 @endsection
-
-

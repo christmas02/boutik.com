@@ -1,131 +1,233 @@
 <!doctype html>
-<html lang="en" data-layout="vertical" data-topbar="light" data-sidebar="dark" data-sidebar-size="lg" data-sidebar-image="none" data-preloader="disable">
-
-
-<!-- Mirrored from themesbrand.com/velzon/html/default/auth-signin-basic.html by HTTrack Website Copier/3.x [XR&CO'2014], Sat, 06 Apr 2024 12:26:22 GMT -->
+<html lang="fr">
 <head>
-
     <meta charset="utf-8" />
-    <title>Boutik17 |  - Tableau administration</title>
+    <title>Boutik17 | Connexion Administration</title>
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta content="Premium Multipurpose Admin & Dashboard Template" name="description" />
-    <meta content="Themesbrand" name="author" />
-    <!-- App favicon -->
-    <link rel="shortcut icon" href="admin/assets/images/favicon.ico">
+    <!-- Bootstrap CSS -->
+    <link href="{{ asset('/admin/assets/css/bootstrap.min.css') }}" rel="stylesheet" type="text/css" />
+    <!-- Icons -->
+    <link href="{{ asset('/admin/assets/css/icons.min.css') }}" rel="stylesheet" type="text/css" />
 
-    <!-- Layout config Js -->
-    <script src="admin/assets/js/layout.js"></script>
-    <!-- Bootstrap Css -->
-    <link href="admin/assets/css/bootstrap.min.css" rel="stylesheet" type="text/css" />
-    <!-- Icons Css -->
-    <link href="admin/assets/css/icons.min.css" rel="stylesheet" type="text/css" />
-    <!-- App Css-->
-    <link href="admin/assets/css/app.min.css" rel="stylesheet" type="text/css" />
-    <!-- custom Css-->
-    <link href="admin/assets/css/custom.min.css" rel="stylesheet" type="text/css" />
+    <style>
+        *, *::before, *::after { box-sizing: border-box; }
 
+        body {
+            margin: 0;
+            min-height: 100vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            background: #0f172a;
+            font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+        }
+
+        /* Background pattern */
+        body::before {
+            content: '';
+            position: fixed;
+            inset: 0;
+            background: radial-gradient(ellipse at 20% 50%, rgba(20,184,166,.12) 0%, transparent 60%),
+                        radial-gradient(ellipse at 80% 20%, rgba(139,92,246,.08) 0%, transparent 50%);
+            pointer-events: none;
+        }
+
+        .login-wrapper {
+            width: 100%;
+            max-width: 420px;
+            padding: 20px;
+            position: relative;
+            z-index: 1;
+        }
+
+        /* Logo / Brand */
+        .login-brand {
+            text-align: center;
+            margin-bottom: 32px;
+        }
+        .login-brand-name {
+            font-size: 32px;
+            font-weight: 800;
+            color: #fff;
+            letter-spacing: -1px;
+        }
+        .login-brand-name em { color: #14b8a6; font-style: normal; }
+        .login-brand-sub {
+            font-size: 13px;
+            color: rgba(255,255,255,.4);
+            margin-top: 4px;
+        }
+
+        /* Card */
+        .login-card {
+            background: rgba(255,255,255,.04);
+            border: 1px solid rgba(255,255,255,.08);
+            border-radius: 20px;
+            padding: 36px 32px;
+            backdrop-filter: blur(10px);
+        }
+        .login-card h2 {
+            font-size: 20px;
+            font-weight: 700;
+            color: #fff;
+            margin-bottom: 4px;
+        }
+        .login-card p {
+            font-size: 13px;
+            color: rgba(255,255,255,.4);
+            margin-bottom: 28px;
+        }
+
+        /* Alerts */
+        .alert-login-error {
+            background: rgba(239,68,68,.12);
+            border: 1px solid rgba(239,68,68,.2);
+            color: #fca5a5;
+            border-radius: 10px;
+            padding: 12px 16px;
+            font-size: 13.5px;
+            margin-bottom: 20px;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        /* Form */
+        .form-label {
+            font-size: 13px;
+            font-weight: 500;
+            color: rgba(255,255,255,.7);
+            margin-bottom: 6px;
+        }
+        .form-control {
+            background: rgba(255,255,255,.06) !important;
+            border: 1px solid rgba(255,255,255,.1) !important;
+            border-radius: 10px !important;
+            color: #fff !important;
+            font-size: 14px !important;
+            padding: 11px 14px !important;
+            transition: border-color .15s;
+        }
+        .form-control::placeholder { color: rgba(255,255,255,.25) !important; }
+        .form-control:focus {
+            border-color: #14b8a6 !important;
+            box-shadow: 0 0 0 3px rgba(20,184,166,.15) !important;
+            background: rgba(255,255,255,.08) !important;
+            outline: none !important;
+        }
+
+        /* Password toggle */
+        .pass-wrapper { position: relative; }
+        .pass-toggle {
+            position: absolute;
+            right: 12px;
+            top: 50%;
+            transform: translateY(-50%);
+            background: none;
+            border: none;
+            color: rgba(255,255,255,.35);
+            cursor: pointer;
+            font-size: 16px;
+            padding: 0;
+            line-height: 1;
+        }
+        .pass-toggle:hover { color: rgba(255,255,255,.7); }
+
+        /* Forgot */
+        .forgot-link {
+            font-size: 12px;
+            color: rgba(255,255,255,.4);
+            text-decoration: none;
+        }
+        .forgot-link:hover { color: #14b8a6; }
+
+        /* Submit */
+        .btn-login {
+            width: 100%;
+            background: #14b8a6;
+            border: none;
+            border-radius: 10px;
+            color: #fff;
+            font-size: 15px;
+            font-weight: 600;
+            padding: 12px;
+            cursor: pointer;
+            transition: background .15s;
+            margin-top: 8px;
+        }
+        .btn-login:hover { background: #0d9488; }
+        .btn-login:active { background: #0f766e; }
+
+        .footer-text {
+            text-align: center;
+            margin-top: 28px;
+            font-size: 12px;
+            color: rgba(255,255,255,.2);
+        }
+    </style>
 </head>
-
 <body>
 
-<div class="auth-page-wrapper pt-5">
+<div class="login-wrapper">
 
-    <!-- auth page content -->
-    <div class="auth-page-content">
-        <div class="container">
-            <div class="row">
-                <div class="col-lg-12">
-                    @include('backoffice.status')
-                    <div class="text-center mt-sm-5 mb-4 text-white-50">
-                        <div>
-                            <a href="" class="d-inline-block auth-logo">
-                                <img src="{{ asset('assets/img/logo/logo.png') }}"  alt="" height="100">
-                            </a>
-                        </div>
-                    </div>
-                </div>
-            </div>
-            <!-- end row -->
-
-            <div class="row justify-content-center">
-                <div class="col-md-8 col-lg-6 col-xl-5">
-                    <div class="card mt-4">
-
-                        <div class="card-body p-4">
-
-                            <div class="p-2 mt-4">
-                                <form action="/connexion" method="POST">
-                                    @csrf
-                                    <div class="mb-3">
-                                        <label for="username" class="form-label fw-bold">Identifiant</label>
-                                        <input type="text" name="email" class="form-control" id="username" placeholder="Enter username">
-                                    </div>
-
-                                    <div class="mb-3">
-                                        <div class="float-end">
-                                            <a href="/mot_de_passe_oublier" class="text-muted">Mot de passe oublier ?</a>
-                                        </div>
-                                        <label class="form-label" for="password-input fw-bold">Mot de passe</label>
-                                        <div class="position-relative auth-pass-inputgroup mb-3">
-                                            <input type="password" name="password" class="form-control pe-5 password-input" placeholder="Enter password" id="password-input">
-                                            <button class="btn btn-link position-absolute end-0 top-0 text-decoration-none text-muted password-addon" type="button" id="password-addon"><i class="ri-eye-fill align-middle"></i></button>
-                                        </div>
-                                    </div>
-
-
-
-                                    <div class="mt-4">
-                                        <button class="btn btn-success btn-color-primary w-100" type="submit">Connexion</button>
-                                    </div>
-
-
-                                </form>
-                            </div>
-                        </div>
-                        <!-- end card body -->
-                    </div>
-                    <!-- end card -->
-
-                </div>
-            </div>
-            <!-- end row -->
-        </div>
-        <!-- end container -->
+    <!-- Brand -->
+    <div class="login-brand">
+        <div class="login-brand-name">Boutik<em>17</em></div>
+        <div class="login-brand-sub">Espace d'administration</div>
     </div>
-    <!-- end auth page content -->
 
-    <!-- footer -->
-    <footer class="footer">
-        <div class="container">
-            <div class="row">
-                <div class="col-lg-12">
-                    <div class="text-center">
+    <!-- Card -->
+    <div class="login-card">
+        <h2>Connexion</h2>
+        <p>Entrez vos identifiants pour accéder au tableau de bord.</p>
 
-                    </div>
+        @include('backoffice.status')
+
+        <form action="/connexion" method="POST">
+            @csrf
+            <div class="mb-3">
+                <label class="form-label">Identifiant (email)</label>
+                <input type="text" name="email" class="form-control"
+                       placeholder="votre@email.com" autocomplete="username" required>
+            </div>
+
+            <div class="mb-1">
+                <label class="form-label d-flex justify-content-between">
+                    <span>Mot de passe</span>
+                    <a href="/mot_de_passe_oublier" class="forgot-link">Mot de passe oublié ?</a>
+                </label>
+                <div class="pass-wrapper">
+                    <input type="password" name="password" class="form-control"
+                           placeholder="••••••••" id="password-field" autocomplete="current-password" required>
+                    <button type="button" class="pass-toggle" id="toggle-pass">
+                        <i class="ri-eye-line" id="eye-icon"></i>
+                    </button>
                 </div>
             </div>
-        </div>
-    </footer>
-    <!-- end Footer -->
+
+            <button type="submit" class="btn-login">
+                <i class="ri-login-box-line me-2"></i> Se connecter
+            </button>
+        </form>
+    </div>
+
+    <div class="footer-text">&copy; {{ date('Y') }} Boutik17 &mdash; Tous droits réservés</div>
 </div>
-<!-- end auth-page-wrapper -->
 
-<!-- JAVASCRIPT -->
-<script src="admin/assets/libs/bootstrap/js/bootstrap.bundle.min.js"></script>
-<script src="admin/assets/libs/simplebar/simplebar.min.js"></script>
-<script src="admin/assets/libs/node-waves/waves.min.js"></script>
-<script src="admin/assets/libs/feather-icons/feather.min.js"></script>
-<script src="admin/assets/js/pages/plugins/lord-icon-2.1.0.js"></script>
-<script src="admin/assets/js/plugins.js"></script>
-
-<!-- particles js -->
-<script src="admin/assets/libs/particles.js/particles.js"></script>
-<!-- particles app js -->
-<script src="admin/assets/js/pages/particles.app.js"></script>
-<!-- password-addon init -->
-<script src="admin/assets/js/pages/password-addon.init.js"></script>
+<!-- Bootstrap JS -->
+<script src="{{ asset('/admin/assets/libs/bootstrap/js/bootstrap.bundle.min.js') }}"></script>
+<script>
+    document.getElementById('toggle-pass')?.addEventListener('click', function () {
+        const field = document.getElementById('password-field');
+        const icon  = document.getElementById('eye-icon');
+        if (field.type === 'password') {
+            field.type = 'text';
+            icon.className = 'ri-eye-off-line';
+        } else {
+            field.type = 'password';
+            icon.className = 'ri-eye-line';
+        }
+    });
+</script>
 </body>
-
-
-<!-- Mirrored from themesbrand.com/velzon/html/default/auth-signin-basic.html by HTTrack Website Copier/3.x [XR&CO'2014], Sat, 06 Apr 2024 12:26:23 GMT -->
 </html>

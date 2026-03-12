@@ -102,20 +102,6 @@
         </a>
         @endforeach
     </div>
-
-    <div class="mt-8 pt-6 border-t border-slate-200 flex flex-col items-center gap-4">
-        <a href="/produits_de_categorie/3/Parfumerie" class="btn-primary text-sm px-6 py-2.5 inline-flex items-center justify-center gap-2">
-            Voir tous les produits
-            <svg class="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"/>
-            </svg>
-        </a>
-        <button @click="next"
-                :class="current === maxPage ? 'opacity-30 cursor-not-allowed' : ''"
-                class="btn-outline-blue text-sm px-5 py-2.5 sm:hidden transition-opacity">
-            Voir les produits suivants
-        </button>
-    </div>
 </section>
 @endif
 

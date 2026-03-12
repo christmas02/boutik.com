@@ -1,208 +1,185 @@
 @extends('backoffice.layout')
 
+@section('page-title', 'Nouveau produit')
+
 @section('content')
-<!-- Vertical Overlay-->
-<div class="vertical-overlay"></div>
-
-<!-- ============================================================== -->
-<!-- Start right Content here -->
-<!-- ============================================================== -->
 <div class="main-content">
-
     <div class="page-content">
         <div class="container-fluid">
 
-            <!-- start page title -->
-            <div class="row">
-                <div class="col-12">
-                    <div class="page-title-box d-sm-flex align-items-center justify-content-between">
-                        <h4 class="mb-sm-0">Création d'un nouveau produit </h4>
-                    </div>
+            <div class="d-flex align-items-center justify-content-between mb-4">
+                <div>
+                    <h4 class="mb-1" style="font-size:20px;font-weight:700;color:#1e293b;">Créer un produit</h4>
+                    <p class="text-muted mb-0" style="font-size:13px;">Ajouter un nouveau produit au catalogue</p>
                 </div>
+                <a href="/list/product" class="btn btn-light">
+                    <i class="ri-arrow-left-line me-1"></i> Retour
+                </a>
             </div>
-            <!-- end page title -->
+
             @include('backoffice.status')
 
-            <form id="createproduct-form" autocomplete="off" class="needs-validation" method="POST" action="/saveProduct" enctype="multipart/form-data">
+            <form id="createproduct-form" autocomplete="off" class="needs-validation"
+                  method="POST" action="/saveProduct" enctype="multipart/form-data" novalidate>
                 {{ csrf_field() }}
-                <div class="row">
+
+                <div class="row g-4">
+
+                    <!-- COLONNE PRINCIPALE -->
                     <div class="col-lg-8">
+
+                        <!-- Informations générales -->
                         <div class="card">
+                            <div class="card-header">
+                                <h5><i class="ri-information-line me-2 text-muted"></i>Informations générales</h5>
+                            </div>
                             <div class="card-body">
                                 <div class="mb-3">
-                                    <label class="form-label" for="product-title-input">Nom de produit</label>
-                                    <input type="text" class="form-control" name="name" value="{{ old('name') }}" required>
-                                    <div class="invalid-feedback">Please Enter a product title.</div>
+                                    <label class="form-label">Nom du produit <span class="text-danger">*</span></label>
+                                    <input type="text" class="form-control" name="name"
+                                           value="{{ old('name') }}" placeholder="Ex : Parfum Oud Royal 100ml" required>
+                                    <div class="invalid-feedback">Veuillez saisir un nom de produit.</div>
                                 </div>
-                                <div>
-                                    <label>Description du produit</label>
-                                    <textarea name="description" value="{{ old('description') }}" id="ckeditor-classic"> </textarea>
+                                <div class="mb-0">
+                                    <label class="form-label">Description du produit</label>
+                                    <textarea name="description" id="ckeditor-classic"
+                                              placeholder="Description détaillée du produit...">{{ old('description') }}</textarea>
                                 </div>
                             </div>
                         </div>
-                        <!-- end card -->
 
+                        <!-- Images -->
                         <div class="card">
                             <div class="card-header">
-                                <h5 class="card-title mb-0">Image du produit</h5>
+                                <h5><i class="ri-image-line me-2 text-muted"></i>Images du produit</h5>
                             </div>
                             <div class="card-body">
                                 <div class="mb-4">
-                                    <div class="text-center">
-                                        <div class="position-relative d-inline-block">
-                                            <div class="position-absolute top-100 start-100 translate-middle">
-                                                <label for="product-image-input" class="mb-0" data-bs-toggle="tooltip" data-bs-placement="right" title="Select Image">
-                                                    <div class="avatar-xs">
-                                                        <div class="avatar-title bg-light border rounded-circle text-muted cursor-pointer">
-                                                            <i class="ri-image-fill"></i>
-                                                        </div>
-                                                    </div>
-                                                </label>
-                                                <input class="form-control d-none" value="" id="product-image-input" name="picture" type="file" accept="image/webp, image/png, image/gif, image/jpeg">
-                                            </div>
-                                            <div class="avatar-lg">
-                                                <div class="avatar-title bg-light rounded">
-                                                    <img src="#" id="product-img" class="avatar-md h-auto" />
-                                                </div>
-                                            </div>
+                                    <label class="form-label">Image principale <span class="text-danger">*</span></label>
+                                    <div class="d-flex align-items-center gap-3">
+                                        <div style="width:80px;height:80px;border-radius:10px;background:#f8fafc;border:2px dashed #e2e8f0;display:flex;align-items:center;justify-content:center;overflow:hidden;">
+                                            <img src="#" id="product-img" style="width:100%;height:100%;object-fit:cover;display:none;">
+                                            <i class="ri-image-add-line" id="img-placeholder" style="font-size:24px;color:#cbd5e1;"></i>
+                                        </div>
+                                        <div>
+                                            <label for="product-image-input" class="btn btn-light btn-sm" style="cursor:pointer;">
+                                                <i class="ri-upload-2-line me-1"></i> Choisir
+                                            </label>
+                                            <input class="d-none" id="product-image-input" name="picture" type="file"
+                                                   accept="image/webp,image/png,image/gif,image/jpeg">
+                                            <p class="text-muted mt-1 mb-0" style="font-size:12px;">PNG, JPG, WEBP acceptés</p>
                                         </div>
                                     </div>
                                 </div>
 
-                                <div>
-                                    <div class="dropzone d-none">
-
-                                    </div>
-
-                                    <ul class="list-unstyled mb-0" id="dropzone-preview">
-                                        <li class="mt-2" id="dropzone-preview-list">
-                                            <!-- This is used as the file preview template -->
-                                            <div class="border rounded">
-                                                <div class="d-flex p-2">
-                                                    <div class="flex-shrink-0 me-3">
-
-                                                    </div>
-                                                    <div class="flex-grow-1">
-
-                                                    </div>
-
-                                                </div>
-                                            </div>
-                                        </li>
-                                    </ul>
-                                    <!-- end dropzon-preview -->
-                                </div>
-
-                                <div class="item form-group">
-                                    <label for="middle-name" class="col-form-label col-md-12 col-sm-12 label-align">"Choisissez 4 images de plus."</label>
-                                    <div class="col-md-12 col-sm-12 ">
-                                        <input id="imageInput2" type="file" name="images[]" maxlength="4" accept="image/*" class="form-control" multiple required>
-                                        <p class="text-danger">NB : Vous pouvez choisir jusqu'à 4 photos de détail dans ce champ.</p>
-                                    </div>
+                                <div class="mb-0">
+                                    <label class="form-label">Images galerie (jusqu'à 4 photos)</label>
+                                    <input id="imageInput2" type="file" name="images[]"
+                                           accept="image/*" class="form-control" multiple required>
+                                    <div class="form-text text-danger">Choisissez jusqu'à 4 images de détail.</div>
                                 </div>
                             </div>
                         </div>
-                        <!-- end card -->
 
                         <div class="text-end mb-3">
-                            <button type="submit" class="btn btn-success w-sm">Enregistrer</button>
+                            <button type="submit" class="btn btn-success px-4">
+                                <i class="ri-save-line me-1"></i> Enregistrer le produit
+                            </button>
                         </div>
                     </div>
-                    <!-- end col -->
 
+                    <!-- COLONNE LATÉRALE -->
                     <div class="col-lg-4">
+
+                        <!-- Catégorie -->
                         <div class="card">
                             <div class="card-header">
-                                <h5 class="card-title mb-0">Catégoeie et sous catégorie</h5>
+                                <h5><i class="ri-list-check me-2 text-muted"></i>Classification</h5>
                             </div>
                             <div class="card-body">
                                 <div class="mb-3">
-                                    <label for="choices-publish-status-input" class="form-label">Catégorie</label>
+                                    <label class="form-label">Catégorie <span class="text-danger">*</span></label>
                                     <select name="categorie" id="categorie" class="form-select">
-                                        <option value="">--Choisir la Catégorie--</option>
+                                        <option value="">— Choisir la catégorie —</option>
                                         @foreach($categories as $categorie)
-                                        <option value="{{ $categorie->id }}" {{ old('$categorie->id') == 'CI' ? 'selected' : '' }}> {{ $categorie->name }} </option>
+                                        <option value="{{ $categorie->id }}" {{ old('categorie') == $categorie->id ? 'selected' : '' }}>
+                                            {{ $categorie->name }}
+                                        </option>
                                         @endforeach
                                     </select>
                                 </div>
-
                                 <div class="mb-3">
-                                    <label for="choices-publish-status-input" class="form-label">Sous caatégorie</label>
-                                    <select name="subcategorie" id="categorie" class="form-select">
-                                        <option value="">--Choisir la Catégorie--</option>
-                                        @foreach($sous_categories as $categorie)
-                                        <option value="{{ $categorie->id }}" {{ old('$categorie->id') == 'CI' ? 'selected' : '' }}> {{ $categorie->name }} </option>
+                                    <label class="form-label">Sous catégorie</label>
+                                    <select name="subcategorie" id="souscategorie" class="form-select">
+                                        <option value="">— Choisir la sous catégorie —</option>
+                                        @foreach($sous_categories as $scat)
+                                        <option value="{{ $scat->id }}">{{ $scat->name }}</option>
                                         @endforeach
                                     </select>
                                 </div>
-
-                                <div>
-                                    <label for="choices-publish-visibility-input" class="form-label">Disponibilité du produit</label>
-                                    <select name="typeachat" class="form-select" >
-                                        <option value="DISPO" {{ old('DISPO') == 'CI' ? 'selected' : '' }} >DISPONIBLE</option>
-                                        <option value="PRE_COM" {{ old('PRE_COM') == 'CI' ? 'selected' : '' }}>PRÉ COMMANDE</option>
+                                <div class="mb-0">
+                                    <label class="form-label">Disponibilité</label>
+                                    <select name="typeachat" class="form-select">
+                                        <option value="DISPO">Disponible</option>
+                                        <option value="PRE_COM">Pré-commande</option>
                                     </select>
                                 </div>
                             </div>
-                            <!-- end card body -->
                         </div>
-                        <!-- end card -->
 
+                        <!-- Prix & Stock -->
                         <div class="card">
                             <div class="card-header">
-                                <h5 class="card-title mb-0">Quantite et prix</h5>
+                                <h5><i class="ri-price-tag-3-line me-2 text-muted"></i>Prix & Stock</h5>
                             </div>
                             <div class="card-body">
                                 <div class="mb-3">
-                                    <label class="form-label" for="product-title-input">Quantité</label>
-                                    <input type="text" class="form-control d-none" id="product-id-input">
-                                    <input type="number" class="form-control" value="{{ old('quantity') }}" name="quantity" required>
-                                    <div class="invalid-feedback">Please Enter a product title.</div>
+                                    <label class="form-label">Quantité en stock <span class="text-danger">*</span></label>
+                                    <input type="number" class="form-control" name="quantity"
+                                           value="{{ old('quantity') }}" placeholder="0" min="0" required>
+                                    <div class="invalid-feedback">Veuillez indiquer la quantité.</div>
                                 </div>
-                                <div class="mb-3">
-                                    <label class="form-label" for="product-title-input">Montant</label>
-                                    <input type="text" class="form-control d-none">
-                                    <input type="number" class="form-control" name="amount" value="{{ old('amount') }}"  required>
-                                    <div class="invalid-feedback">Please Enter a product title.</div>
+                                <div class="mb-0">
+                                    <label class="form-label">Prix unitaire (CFA) <span class="text-danger">*</span></label>
+                                    <input type="number" class="form-control" name="amount"
+                                           value="{{ old('amount') }}" placeholder="0" min="0" required>
+                                    <div class="invalid-feedback">Veuillez indiquer le prix.</div>
                                 </div>
                             </div>
-                            <!-- end card body -->
                         </div>
-                        <!-- end card -->
 
                     </div>
-                    <!-- end col -->
                 </div>
-                <!-- end row -->
-
             </form>
 
-
         </div>
-        <!-- container-fluid -->
     </div>
-    <!-- End Page-content -->
 
     <footer class="footer">
         <div class="container-fluid">
             <div class="row">
-                <div class="col-sm-6">
-                    <script>document.write(new Date().getFullYear())</script> © Velzon.
-                </div>
-                <div class="col-sm-6">
-                    <div class="text-sm-end d-none d-sm-block">
-                        Design & Develop by Richkoff
-                    </div>
-                </div>
+                <div class="col-sm-6">&copy; {{ date('Y') }} Boutik17</div>
+                <div class="col-sm-6 text-sm-end d-none d-sm-block">Espace Administration</div>
             </div>
         </div>
     </footer>
 </div>
-<!-- end main content-->
+
+@push('scripts')
+<script>
+    // Aperçu image principale
+    document.getElementById('product-image-input')?.addEventListener('change', function(e) {
+        const file = e.target.files[0];
+        if (file) {
+            const reader = new FileReader();
+            reader.onload = function(ev) {
+                document.getElementById('product-img').src = ev.target.result;
+                document.getElementById('product-img').style.display = 'block';
+                document.getElementById('img-placeholder').style.display = 'none';
+            };
+            reader.readAsDataURL(file);
+        }
+    });
+</script>
+@endpush
 @endsection
-
-@section('extra-js')
-
-@endsection
-
-

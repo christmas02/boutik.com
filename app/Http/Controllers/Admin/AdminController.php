@@ -3,6 +3,8 @@
 namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
+use App\Models\Categorie;
+use App\Models\Product as Produit;
 use App\Repositories\ProductRepository;
 use App\Services\Service;
 use Illuminate\Http\Request;
@@ -150,7 +152,7 @@ class AdminController extends Controller
 
            // dd($data);
 
-            $newProduct = $this->productRepository->saveNewProduct($data);
+            $newProduct = $this->productRepository-> saveNewProduct($data);
 
             if($newProduct->getStatusCode() == 200){
                 return redirect('/list/product')->with('success', 'La nouvelle catégorie a été bien eregistre');
@@ -193,7 +195,7 @@ class AdminController extends Controller
             $product->stock = ($old_quantity + $new_quantity);
             $product->save();
 
-            $this->historiqStockProduct($code_product,($old_quantity + $new_quantity));
+            //$this->productRepository->historiqStockProduct($code_product,($old_quantity + $new_quantity));
             DB::commit();
 
             return back()->with('success', 'La nouvelle catégorie a été bien eregistre');
@@ -256,7 +258,24 @@ class AdminController extends Controller
             Log::error($th->getMessage());
             dd($th->getMessage());
         }
+    }
 
+    public function saveValueFeatured(Request $request)
+    {
+        try{
+            // dd($request->all());
+            $code_product = $request->code_product;
+            $featured = $request->featured;
+            $product = Produit::where('code_product',$code_product)->first();
+            $product->featured = $featured;
+            $product->save();
+
+            return redirect('/detail/product/'.$code_product)->with('success', 'La mise a jour du produit a été bien éffèctuer');
+
+        }catch(\Throwable $th){
+            Log::error($th->getMessage());
+            return back()->with('error', 'Une erreur est survenus !');
+        }
     }
 
 

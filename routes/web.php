@@ -75,6 +75,7 @@ Route::group(['middleware' => 'auth'], function () {
         Route::post('/updateProduct', 'updateProduct')->name('updateProduct');
         Route::post('/updatePicture', 'updatePicture')->name('updatePicture');
         Route::post('/saveValueArchive', 'saveValueArchive')->name('saveValueArchive');
+        Route::post('/saveValueFeatured', 'saveValueFeatured')->name('saveValueFeatured');
 
         // category and sub categ ory
         Route::get('/list/categorie', 'listCategory')->name('listCategory');
