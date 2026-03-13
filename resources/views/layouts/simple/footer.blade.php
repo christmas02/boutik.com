@@ -36,7 +36,7 @@
                                         </li>
                                         <li class="mn-footer-link mn-foo-call">
                                             <span><i class="ri-whatsapp-line"></i></span>
-                                            <a href="tel:+2250565121084">+225 0565121084</a>
+                                            <a href="tel:+2250700780244"> +2250700780244</a>
                                         </li>
                                         <li class="mn-footer-link mn-foo-mail">
                                             <span><i class="ri-mail-line"></i></span>

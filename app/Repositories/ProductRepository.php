@@ -108,11 +108,10 @@ class ProductRepository
                 $product[$i]["amount"] = $value->montant;
                 $product[$i]["quantity"] = $value->stock;
                 $product[$i]["description"] = $value->description;
-                $product[$i]["type_achat"] = $value->type_achat;
                 $product[$i]["category"] = $categoryProduct->name;
                 $product[$i]["picture"] = $value->image;
-                $product[$i]["code_product"] = $value->code_product;
                 $product[$i]["slug"] = $value->slug;
+                $product[$i]["featured"] = $value->featured;
                 $product[$i]["date_publication"] = $value->created_at;
                 $product[$i]["code_product"] = $value->code_product;
                 $i++;
