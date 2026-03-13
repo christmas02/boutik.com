@@ -92,7 +92,10 @@ class ProductRepository
     public function getProduct()
     {
         try{
-            $products = Product::where('archive',null)->get();
+            $products = Product::where('archive',null)
+                ->where('stock', '!=', 0)
+                ->orderBy('id', 'desc')->get();
+
             $i = 0;
             $product = [];
 

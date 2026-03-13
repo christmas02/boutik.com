@@ -26,7 +26,8 @@ class ShoppingController extends Controller
 
     //
     public function home(){
-        $allProducts = $this->productRepository->productBycategorie(3);
+        //$allProducts = $this->productRepository->productBycategorie(3);
+        $allProducts = $this->productRepository->getProduct();
         $productsfeatured = array_filter($allProducts, function ($product) {
             return isset($product['featured']) && $product['featured'] == 1;
         });

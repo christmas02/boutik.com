@@ -126,7 +126,7 @@
                         </svg>
                         Ajouter au panier
                     </button>
-                    <a href="https://wa.me/s2250700780244?text=Bonjour,%20je%20suis%20intéressé%20par%20ce%20produit:%20{{ urlencode($product['name']) }}%20%0A{{ urlencode(request()->url()) }}"
+                    <a href="https://wa.me/2250700780244?text=Bonjour,%20je%20suis%20intéressé%20par%20ce%20produit:%20{{ urlencode($product['name']) }}%20%0A{{ urlencode(request()->url()) }}"
                        target="_blank"
                        class="btn-primary bg-green-500 hover:bg-green-600 flex-1 sm:flex-none text-base px-8 py-3.5 flex items-center justify-center">
                         <svg class="mr-2 w-5 h-5" fill="currentColor" viewBox="0 0 24 24">
